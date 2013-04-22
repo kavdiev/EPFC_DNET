@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 22, 2013 9:08:56 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="model.User" table="user" catalog="dnet">
+        <id name="idUser" type="java.lang.Integer">
+            <column name="idUser" />
+            <generator class="identity" />
+        </id>
+        <property name="nom" type="string">
+            <column name="nom" length="45" not-null="true" unique="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="45" not-null="true" />
+        </property>
+        <property name="postcode" type="int">
+            <column name="postcode" not-null="true" />
+        </property>
+        <property name="admin" type="byte">
+            <column name="admin" not-null="true" />
+        </property>
+        <set name="bienimmos" inverse="true">
+            <key>
+                <column name="owner" not-null="true" />
+            </key>
+            <one-to-many class="model.Bienimmo" />
+        </set>
+        <set name="locations" inverse="true">
+            <key>
+                <column name="numUser" not-null="true" />
+            </key>
+            <one-to-many class="model.Location" />
+        </set>
+    </class>
+</hibernate-mapping>

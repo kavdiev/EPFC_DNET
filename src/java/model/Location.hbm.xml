@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 22, 2013 9:08:56 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="model.Location" table="location" catalog="dnet">
+        <id name="idlocation" type="java.lang.Integer">
+            <column name="idlocation" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="bienimmo" class="model.Bienimmo" fetch="select">
+            <column name="numBienImmo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="user" class="model.User" fetch="select">
+            <column name="numUser" not-null="true" />
+        </many-to-one>
+        <property name="date" type="timestamp">
+            <column name="date" length="19" not-null="true" />
+        </property>
+        <property name="prix" type="int">
+            <column name="prix" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

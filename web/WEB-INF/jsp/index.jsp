@@ -12,16 +12,30 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Bonjour  sur le site de location d'appartements..... </h1>
+        <div align="center"> 
+        <h1> hello sur le site de location d'apparts </h1>
+        </div>
         
-        <form method="POST" action="liste.htm">
-            <input name="liste" type="submit" value="Liste des personnes">
-            <input name="initListe" type="submit" value="Ré-initialiser Liste">
-        </form>
-        <form method="POST" action="liste.htm">
-            <input name="liste" type="submit" value="Liste des personnes">
-            <input name="initListe" type="submit" value="Ré-initialiser Liste">
-        </form>
+        <table border="1" align="center">
+        <tr>
+           <td>Users</td>
+           <td>Apparts</td>
+        </tr>
+        <tr>
+            <td>
+                <form method="POST" action="liste.htm">
+                    <input name="liste" type="submit" value="New User">
+                    <input name="initListe" type="submit" value="Log in">
+                </form>
+            </td>
+            <td>
+                <form method="POST" action="liste.htm">
+                    <input name="liste" type="submit" value="New Appart">
+                    <input name="initListe" type="submit" value="Search apparts">
+                </form>                
+            </td>
+        </tr>
+        </table>
         
     </body>
 </html>
