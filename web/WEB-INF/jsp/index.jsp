@@ -13,29 +13,35 @@
     </head>
     <body>
         <div align="center"> 
-        <h1> hello sur le site de location d'apparts </h1>
+            <h1> hello sur le site de location d'apparts </h1>
         </div>
-        
-        <table border="1" align="center">
-        <tr>
-           <td>Users</td>
-           <td>Apparts</td>
-        </tr>
-        <tr>
-            <td>
-                <form method="POST" action="liste.htm">
-                    <input name="liste" type="submit" value="New User">
-                    <input name="initListe" type="submit" value="Log in">
-                </form>
-            </td>
-            <td>
-                <form method="POST" action="liste.htm">
-                    <input name="liste" type="submit" value="New Appart">
-                    <input name="initListe" type="submit" value="Search apparts">
-                </form>                
-            </td>
-        </tr>
+
+        <table border="1" align="center" wight="40%">
+            <tr>
+                <td>Users</td>
+            </tr>
+            <tr>
+                <td>
+                    <form method="POST" action="user.htm">
+                        <input name="newUser" type="submit" value="New User">
+                        <input name="listUser" type="submit" value="List Users">
+                    </form>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Bien Immo</td>
+            </tr>
+            <tr>
+                <td>
+                    <form method="POST" action="bienimmo.htm">
+                        <input name="newBienImmo" type="submit" value="New bienImmo">
+                        <input name="listBienImmo" type="submit" value="List bienImmo">
+                    </form>
+                </td>
+            </tr>
+
         </table>
-        
+
     </body>
 </html>
