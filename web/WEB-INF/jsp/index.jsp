@@ -3,8 +3,8 @@
     Created on : Apr 17, 2013, 11:08:10 PM
     Author     : baxter
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,26 +22,34 @@
             </tr>
             <tr>
                 <td>
-                    <form method="POST" action="user.htm">
-                        <input name="newUser" type="submit" value="New User">
-                        <input name="listUser" type="submit" value="List Users">
-                    </form>
-                </td>
-            </tr>
+            <c:url value="user.htm" var="mavar" />
+            <a href='<c:out value="${mavar}"/>'>New User</a>
 
-            <tr>
-                <td>Bien Immo</td>
-            </tr>
-            <tr>
-                <td>
-                    <form method="POST" action="bienimmo.htm">
-                        <input name="newBienImmo" type="submit" value="New bienImmo">
-                        <input name="listBienImmo" type="submit" value="List bienImmo">
-                    </form>
-                </td>
-            </tr>
+            <form method="POST" action="user.htm">
+                <input name="listUser" type="submit" value="List Users">
+            </form>
+        </td>
+    </tr>
 
-        </table>
+    <tr>
+        <td>Bien Immo</td>
+    </tr>
+    <tr>
+        <td>
+            <form method="POST" action="bienimmo.htm">
+                <input name="newBienImmo" type="submit" value="New bienImmo">
+                <input name="listBienImmo" type="submit" value="List bienImmo">
+            </form>
+        </td>
+    </tr>
 
-    </body>
+</table>
+
+<br>
+<form method="POST" action="liste.htm">
+    <input name="liste" type="submit" value="Liste des personnes">
+    <input name="initListe" type="submit" value="Ré-initialiser Liste">
+</form>
+
+</body>
 </html>

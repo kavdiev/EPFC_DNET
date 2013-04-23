@@ -20,6 +20,7 @@
                 <tr>
                     <td><input name="id${user.idUser}" value="${user.idUser}"></td>
                     <td><input name="nom${user.idUser}" value="${user.nom}"></td>
+                    
                     <!--  <td><input type="submit" name="rdv_suppr${rdv.id}" value="Supprimer"></td> -->
                 </tr>
             </c:forEach>

@@ -4,7 +4,7 @@
     Author     : baxter
 --%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -16,18 +16,20 @@
     <body>
         <h1>New User Creation page</h1>
         <form:form method="POST" commandName="user">
-        <table>
-            <tr>
-                <th>Nom</th>
-                <th>Password</th>
-                <th></th>
-            </tr>
-            <tr>
-                <td><form:input path="nom" /> </td>
-                <td><form:input path="password" /> </td>
-                <td><input name="Creer" value="Créer" type="submit" ></td>
-            </tr>
-        </table> 
+            <table>
+                <tr>
+                    <th>Nom</th>
+                    <th>Password</th>
+                    <th>code postal</th>
+                </tr>
+                <tr>
+                    <td><form:input path="nom" /> </td>
+                    <td><form:input path="password" /> </td>
+                    <td><form:input path="postcode" /> </td>
+                    <td><input name="Creer" value="Créer" type="submit" ></td>
+                    <input name="userAdded" type="hidden">
+                </tr>
+            </table> 
         </form:form>
     </body>
 </html>
