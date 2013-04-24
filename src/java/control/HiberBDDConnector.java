@@ -71,7 +71,9 @@ public class HiberBDDConnector {
             connect();
             byte admin = 0;
             u.setAdmin(admin);
-            System.err.println("user " + u.getNom() + " pass " + u.getPassword());
+            System.err.println("user " + u.getNom() + " pass " + u.getPassword()+ " postcode" + u.getPostcode() 
+                    + " admin "+u.getAdmin());
+            session.save(u);
             session.getTransaction().commit();
             
             if (session.getTransaction().wasCommitted()) {
