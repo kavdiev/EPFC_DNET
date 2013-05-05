@@ -5,8 +5,8 @@
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/dnet</property>
-    <property name="hibernate.connection.username">root</property>
-  <!--  <property name="hibernate.connection.password"></property> -->
+    <property name="hibernate.connection.username">dnet</property>
+    <property name="hibernate.connection.password">dnet</property>
     <mapping resource="model/User.hbm.xml"/>
     <mapping resource="model/Bienimmo.hbm.xml"/>
     <mapping resource="model/Location.hbm.xml"/>

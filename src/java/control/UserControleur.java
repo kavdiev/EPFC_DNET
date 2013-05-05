@@ -22,6 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/user.htm")
 public class UserControleur {
+     public UserControleur ()
+     {
+     }
 
     HiberBDDConnector bdd = new HiberBDDConnector();
 

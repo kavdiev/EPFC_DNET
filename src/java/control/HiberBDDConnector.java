@@ -5,6 +5,7 @@
 package control;
 
 import java.util.List;
+import model.Bienimmo;
 import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -35,6 +36,7 @@ public class HiberBDDConnector {
         }
     }
 
+    // ---------------- USER --------------------
     public List<User> getAllUsers() {
         connect();
         query = session.createQuery("from User");
@@ -71,17 +73,16 @@ public class HiberBDDConnector {
             connect();
             byte admin = 0;
             u.setAdmin(admin);
-            System.err.println("user " + u.getNom() + " pass " + u.getPassword()+ " postcode" + u.getPostcode() 
-                    + " admin "+u.getAdmin());
+            System.err.println("user " + u.getNom() + " pass " + u.getPassword() + " postcode" + u.getPostcode()
+                    + " admin " + u.getAdmin());
             session.save(u);
             session.getTransaction().commit();
-            
+
             if (session.getTransaction().wasCommitted()) {
                 out = true;
                 System.err.print("User error commit");
-            }
-            else {
-            System.err.print("User commit don");
+            } else {
+                System.err.print("User commit don");
             }
             stop();
         } else {
@@ -104,5 +105,34 @@ public class HiberBDDConnector {
         System.err.print("User d'ont exist " + nom);
         stop();
         return out;
+    }
+
+    public User getUser(String nom) {
+        connect();
+
+        query = session.createQuery("from User where nom='" + nom + "'");
+        List<User> lst = query.list();
+        return lst.get(0);
+    }
+
+    // ----------------- bien immo
+    public boolean insertBienimmo(Bienimmo appart) {
+        connect();
+        session.save(appart);
+        session.getTransaction().commit();
+        return session.getTransaction().wasCommitted();
+    }
+
+    public List<Bienimmo> getAllBienimmo() {
+        connect();
+        query = session.createQuery("from Bienimmo");
+        return query.list();
+    }
+
+    public List<Bienimmo> getBienimmoFromOwner(int userId) {
+        connect();
+        query = session.createQuery("from Bienimmo where owner='"+userId+"'");
+        return query.list();
+        
     }
 }
