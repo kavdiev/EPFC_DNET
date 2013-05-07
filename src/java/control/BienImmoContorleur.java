@@ -32,19 +32,20 @@ public class BienImmoContorleur {
     @RequestMapping(method = RequestMethod.GET)
     public String setupForm(@RequestParam(required = false, value = "id") String id, ModelMap model) {
         String vue;
-        //User u = new User();
-        vue = "newUser";
-        //model.addAttribute(u);
+        Bienimmo appart = new Bienimmo();
+        vue = "newBienimmo";
+        model.addAttribute(appart);
         return vue;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView menuListe(HttpServletRequest request, @ModelAttribute("newUser") Bienimmo bien) {
-       /* if (request.getParameter("userAdded") != null) {
-            if (u != null) {
-                bdd.insertUser(u);
+    public ModelAndView menuListe(HttpServletRequest request, @ModelAttribute("newappart") Bienimmo bien) {
+        if (request.getParameter("appartAdded") != null) {
+            if (bien != null) {
+                bien.setUser(bdd.getUser("karen"));
+                bdd.insertBienimmo(bien);
             }
-        } */
+        }
         List<Bienimmo> apparts = bdd.getAllBienimmo();
         return new ModelAndView("bienimmolist", "apparts", apparts);
     }

@@ -29,7 +29,7 @@
                     <td><form:input path="piscine" /> </td>
                     <td><form:input path="postcode" /> </td>
                     <td><input name="Creer" value="Créer" type="submit" ></td>
-                <input name="userAdded" type="hidden">
+                <input name="appartAdded" type="hidden">
                 </tr>
             </table> 
         </form:form>
