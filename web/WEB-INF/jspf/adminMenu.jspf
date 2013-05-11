@@ -1,0 +1,36 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<table>
+    <tr>
+    <h2>MENU </h2>
+</tr>
+<tr>
+    <td>
+        <form method="GET" action="user.htm">
+            <input name="listUser" type="submit" value="New User">
+        </form>
+    </td>
+</tr>
+<tr>
+    <td>
+        <form method="POST" action="user.htm">
+            <input name="listUser" type="submit" value="List Users">
+        </form>
+    </td>
+<tr>
+     <td>
+<form method="GET" action="bienimmo.htm">
+    <input name="newBienImmo" type="submit" value="New bienImmo">
+</form>
+          </td>
+</tr>
+<tr>
+     <td>
+<form method="POST" action="bienimmo.htm">
+    <input name="listBienImmo" type="submit" value="List bienImmo">
+</form>
+          </td>
+</tr>
+
+</table>
+

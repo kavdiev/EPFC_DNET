@@ -24,7 +24,15 @@
                     <th>postcode</th>
                 </tr>
                 <tr>
-                    <td><form:input path="nbChambres" /> </td>
+                    <td><form:input path="nbChambres" />  
+                    <select name="chambres" id="chambres" onchange="$appart.setNbChambres(this.selectedIndex)">
+                        <option value="1" selected="selected">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+
+                    </select>
+                    </td>
                     <td><form:input path="garage" /> </td>
                     <td><form:input path="piscine" /> </td>
                     <td><form:input path="postcode" /> </td>
@@ -33,5 +41,6 @@
                 </tr>
             </table> 
         </form:form>
+
     </body>
 </html>

@@ -20,7 +20,7 @@ public class ListePersonne {
     private final int NBMAX_PERS = 5;
 
     public ListePersonne() {
-        personnes = new ArrayList<>();
+        personnes = new ArrayList<Personne>();
     }
 
     public void chargerListeRandom() {

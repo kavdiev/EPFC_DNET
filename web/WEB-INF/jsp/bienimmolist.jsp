@@ -16,13 +16,14 @@
 
     <body>
 
-        <%@include file="/WEB-INF/jsp/header.jspf" %>
+        <%@include file="/WEB-INF/jspf/header.jspf" %>
         <br>
         <h1>Liste des Biens</h1>
         <table>
             <c:forEach items="${apparts}" var="appart"> 
                 <tr>
                     <td> ID <input name="id${appart.idBienImmo}" value="${appart.idBienImmo}"></td>
+                    <td> nb chambres <input name="chambres${appart.idBienImmo}" value="${appart.nbChambres}"></td> 
                     <td>Owner <input name="owner${appart.idBienImmo}" value="${appart.user.nom}"></td>
 
 <!--  <td><input type="submit" name="rdv_suppr${rdv.id}" value="Supprimer"></td> -->

@@ -19,41 +19,13 @@
         <table width="750" border="1" height="90%" align="center">
             <tr>
                 <td colspan="2"  height="5%"> <div align="center"> 
-                        <%@include file="/WEB-INF/jsp/header.jspf" %>
+                        <%@include file="/WEB-INF/jspf/header.jspf" %>
                     </div> </td>
             </tr>
             <tr>
-                <td>Menu</td>
-                <td>        <table border="1" align="center" wight="40%">
-                        <tr>
-                            <td>Users</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <c:url value="user.htm" var="mavar" />
-                                <a href='<c:out value="${mavar}"/>'>New User</a>
-
-                                <form method="POST" action="user.htm">
-                                    <input name="listUser" type="submit" value="List Users">
-                                </form>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Bien Immo</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <form method="GET" action="bienimmo.htm">
-                                    <input name="newBienImmo" type="submit" value="New bienImmo">
-                                </form>
-                                <form method="POST" action="bienimmo.htm">
-                                    <input name="listBienImmo" type="submit" value="List bienImmo">
-                                </form>
-                            </td>
-                        </tr>
-
-                    </table></td>
+                <td width="10%">  <div align="left"> <%@include file="/WEB-INF/jspf/adminMenu.jspf" %> 
+                    </div></td>
+                <td> <a> bla bla </a> </td>
             </tr>
         </table>
 
