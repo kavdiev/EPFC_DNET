@@ -30,6 +30,8 @@ public final class Consts {
     public static final String CURRENT_ID = "cid";
     public static final String CURRENT_APPART = "cappart";
     public static final String CURRENT_SEARCHER = "csearch";
+    public static final String LAST_VISITED_APPARTS = "lastapparts";
+    
     
     // vues
     public static final String MAIN_PAGE_VUE = "mainPage";

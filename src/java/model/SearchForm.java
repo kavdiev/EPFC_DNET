@@ -5,7 +5,6 @@
 package model;
 
 import dao.HibernateAppartDao;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,22 +37,19 @@ public class SearchForm {
     int postCode;
     String rue;
     String pays;
-    String dateIn = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-    String dateOut = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    int yearIn;
+    int weekIn;
+    int yearOut;
+    int weekOut;
 
     @Autowired
     HibernateAppartDao db;
     private int level = SEARCH_LEVEL;
-   /* 
-        Date dateIn;
-    Date dateOut;  
-    {
-     dateIn = new Date();
-     dateOut= new Date();
-    } */
+    
     public SearchForm() {
     }
 
+    
     public SearchForm(int pieces, int superficie, int loyerMax, int loyerMin, boolean garage, boolean piscine, int postCode) {
 
         this.pieces = pieces;
@@ -64,6 +60,25 @@ public class SearchForm {
         this.piscine = piscine;
         this.postCode = postCode;
     }
+
+    public SearchForm(int pieces, String type, int superficie, int loyerMax, int loyerMin, boolean garage, boolean piscine, int postCode, String rue, String pays, int yearIn, int weekIn, int yearOut, int weekOut) {
+        this.pieces = pieces;
+        this.type = type;
+        this.superficie = superficie;
+        this.loyerMax = loyerMax;
+        this.loyerMin = loyerMin;
+        this.garage = garage;
+        this.piscine = piscine;
+        this.postCode = postCode;
+        this.rue = rue;
+        this.pays = pays;
+        this.yearIn = yearIn;
+        this.weekIn = weekIn;
+        this.yearOut = yearOut;
+        this.weekOut = weekOut;
+    }
+    
+    
 
     public boolean isStrict() {
         return strict;
@@ -160,56 +175,39 @@ public class SearchForm {
     public void setDb(HibernateAppartDao db) {
         this.db = db;
     }
-/*
-    public Date getDateIn() {
-        return dateIn;
+
+    public int getYearIn() {
+        return yearIn;
     }
 
-    public void setDateIn(Date dateIn) {
-        this.dateIn = dateIn;
+    public void setYearIn(int yearIn) {
+        this.yearIn = yearIn;
     }
 
-    public Date getDateOut() {
-        return dateOut;
+    public int getWeekIn() {
+        return weekIn;
     }
 
-    public void setDateOut(Date dateOut) {
-        this.dateOut = dateOut;
-    }
-    */
-    
-    
-/*
-    public List<Appart> search() {
-
-        return db.customSearch(buildQuerry());
-    } */
-
-    public Date geDatetDateIn() {
-        return str2Date(dateIn);
+    public void setWeekIn(int weekIn) {
+        this.weekIn = weekIn;
     }
 
-    public void setDateIn(String dateIn) {
-        this.dateIn = dateIn;
+    public int getYearOut() {
+        return yearOut;
     }
 
-    public Date getDateDateOut() {
-        return str2Date(dateOut);
+    public void setYearOut(int yearOut) {
+        this.yearOut = yearOut;
     }
 
-    public String getDateIn() {
-        return dateIn;
+    public int getWeekOut() {
+        return weekOut;
     }
 
-    public String getDateOut() {
-        return dateOut;
+    public void setWeekOut(int weekOut) {
+        this.weekOut = weekOut;
     }
 
-    public void setDateOut(String dateOut) {
-        this.dateOut = dateOut;
-    }
-
-    
     public int getLevel() {
         return level;
     }
@@ -289,12 +287,12 @@ public class SearchForm {
         return out;
     }
     
-    private String buildDateQuerry() {
+  /*  private String buildDateQuerry() {
         return "( select appart_idA from LocationActive where LocationActive.dateIn<='"+
                 this.dateOut+"' AND LocationActive.dateOut>='"+this.dateIn+"')";
-    }
+    } */
 
-    private Date str2Date(String input) {
+  /*  private Date str2Date(String input) {
         String tmp[] = input.split("-");
         if (tmp.length == 3) {
             int annee = Integer.parseInt(tmp[0]);
@@ -306,5 +304,5 @@ public class SearchForm {
         } else {
             return null;
         }
-    }
+    } */
 }

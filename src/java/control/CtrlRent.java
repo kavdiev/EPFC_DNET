@@ -35,7 +35,6 @@ public class CtrlRent extends genericCtrl {
     HibernateUserDao hUser;
     @Autowired
     HibernateLocationActiveDao hLoc;
-    Errors error = new Errors();
 
     @RequestMapping(value = "/rentRequest.htm", method = RequestMethod.GET)
     public ModelAndView getForm(HttpServletRequest request,
@@ -76,7 +75,7 @@ public class CtrlRent extends genericCtrl {
                 model.addAttribute(Consts.SEARCH_FORM, getSearchForm(request));
             }
         } else {
-            model.addAttribute(Consts.MSG, error.getErrorMsg("1"));
+            model.addAttribute(Consts.MSG, Errors.getErrorMsg("1"));
         }
         return new ModelAndView(vue, Consts.MODEL, model);
     }

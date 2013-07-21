@@ -27,8 +27,10 @@ public class AccueilControleur extends genericCtrl {
             ModelMap model) {
         
         String vue = Consts.INDEX_VUE;
+        model.addAttribute(Consts.MSG, "Hello à tous");
         if (logout != null) {
           this.disconnect(request);
+           model.addAttribute(Consts.MSG, "Vous etes dé-logué");
         }
         else {
           if (isLoged(request)){

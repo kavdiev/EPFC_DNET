@@ -32,7 +32,6 @@ public class CtrlUser extends genericCtrl {
     @Autowired
     HibernateUserDao hUser;
     // HiberBDDConnector bdd;
-    Errors error = new Errors();
 
     public CtrlUser() {
     }
@@ -59,24 +58,30 @@ public class CtrlUser extends genericCtrl {
                                 model.addAttribute(Consts.USER, hUser.selectOne(Integer.parseInt(sId)));
                             } else {
                                 model.addAttribute(Consts.SEARCH_FORM, getSearchForm(request));
-                                model.addAttribute(Consts.MSG, error.getErrorMsg("u01"));
+                                model.addAttribute(Consts.MSG, Errors.getErrorMsg("u01"));
                                 vue = Consts.MAIN_PAGE_VUE;
                             }
                         }
                     }else {
-                        model.addAttribute(Consts.MSG, error.getErrorMsg("1"));
+                        model.addAttribute(Consts.MSG, Errors.getErrorMsg("1"));
                     }
                     break;
                 case "login":
                     vue = Consts.LOGIN_VUE;
                     break;
+                case "noUser":
+                    vue = Consts.MAIN_PAGE_VUE;
+                    setAnnonymusUser(request);
+                    model.addAttribute(Consts.SEARCH_FORM, getSearchForm(request));
+                    break;
             }
         } else {
-            model.addAttribute(Consts.MSG, error.getErrorMsg("0"));
+            model.addAttribute(Consts.MSG, Errors.getErrorMsg("0"));
         }
         return new ModelAndView(vue, Consts.MODEL, model);
     }
 
+//-------------- users 
     @RequestMapping(value = "/users.htm", method = RequestMethod.GET)
     public ModelAndView setupListForm(
             @RequestParam(required = false, value = "tool") String tool,
@@ -138,13 +143,13 @@ public class CtrlUser extends genericCtrl {
                 if (isSessionUserAdmin(request)) {
                     u = (User) hUser.selectOne(u.getNom()); // oui c'est tres tordu ... va etre modifié
                     if (u.isAdmin()) {
-                        model.addAttribute(Consts.MSG, error.getErrorMsg("u05"));
+                        model.addAttribute(Consts.MSG, Errors.getErrorMsg("u05"));
                     } else {
                         u.setAdmin();
                         hUser.save(u);
                     }
                 } else {
-                    model.addAttribute(Consts.MSG, error.getErrorMsg("u04"));
+                    model.addAttribute(Consts.MSG, Errors.getErrorMsg("u04"));
                 }
                 model.addAttribute(Consts.SEARCH_FORM, getSearchForm(request));
             }
@@ -155,7 +160,7 @@ public class CtrlUser extends genericCtrl {
             System.out.println("username " + login);
 
             String errorId = hUser.login(login, password);
-            if (error.IsOk(errorId)) {
+            if (Errors.IsOk(errorId)) {
                 vue = Consts.MAIN_PAGE_VUE;
                 u = (User) hUser.selectOne(login);
                 //  model.addAttribute("user", u);
@@ -163,21 +168,21 @@ public class CtrlUser extends genericCtrl {
                 model.addAttribute(Consts.SEARCH_FORM, getSearchForm(request));
             } else {
                 vue = Consts.LOGIN_VUE;
-                model.addAttribute(Consts.MSG, error.getErrorMsg(errorId));
+                model.addAttribute(Consts.MSG, Errors.getErrorMsg(errorId));
             }
         } else if (request.getParameter("userAdded") != null) {
             if (u == null) {
                 System.out.println("go index");
             } else {
                 String errorId = hUser.userExist(u.getNom());
-                if (error.IsOk(errorId)) {
+                if (Errors.IsOk(errorId)) {
                     hUser.save(u);
                     System.out.println("save it");
                     System.out.println("go index");
-                    model.addAttribute(Consts.MSG, error.getErrorMsg("u00"));
+                    model.addAttribute(Consts.MSG, Errors.getErrorMsg("u00"));
                 } else {
                     vue = Consts.NEW_USER_VUE;
-                    model.addAttribute(Consts.MSG, error.getErrorMsg(errorId));
+                    model.addAttribute(Consts.MSG, Errors.getErrorMsg(errorId));
                     model.addAttribute(Consts.USER, new User());
                 }
             }

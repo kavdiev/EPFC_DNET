@@ -4,6 +4,8 @@
  */
 package control;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.Appart;
@@ -21,12 +23,9 @@ import tools.Consts;
  *
  * pn ne garde dans la session que les objet qui ont du sense à être gardé...
  *
- * current user et search form... tout le reste en reconstruit de BD...
- * - currentUser
- * - currentAppart
- * - currentSearchForm
- * - une file d'appart consultées. ( ou juste les ID ) genre 10 derniers
- * - Anonymus user 
+ * current user et search form... tout le reste en reconstruit de BD... -
+ * currentUser - currentAppart - currentSearchForm - une file d'appart
+ * consultées. ( ou juste les ID ) genre 10 derniers - Anonymus user
  *
  * @author baxter
  */
@@ -74,6 +73,11 @@ public class genericCtrl {
         session.setAttribute(Consts.CURRENT_APPART, a);
     }
 
+    protected void setAnnonymusUser(HttpServletRequest request) {
+        session = request.getSession();
+        session.setAttribute(Consts.CURRENT_USER, new User(true));
+    }
+
     protected Appart getCurrentAppart(HttpServletRequest request) {
         session = request.getSession();
         return (Appart) session.getAttribute(Consts.CURRENT_APPART);
@@ -93,5 +97,25 @@ public class genericCtrl {
             return false;
         }
     }
-    // set  ..?
+
+    protected void addAppart2LastVisited(Appart a, HttpServletRequest request) {
+        // 10 appart max
+        session = request.getSession();
+        Queue<Appart> lastVisited = (Queue<Appart>) session.getAttribute(Consts.LAST_VISITED_APPARTS);
+        if (lastVisited == null) {
+            lastVisited = new LinkedList<>();
+        }
+        lastVisited.add(a);
+
+        if (lastVisited.size() > 10) {
+            //on supprime le premier ajouté (le plus OLD)
+            lastVisited.remove();  //on ne recupere pas l'objet renvoyé par Remove, car on n'a pas besoin
+        }
+        session.setAttribute(Consts.LAST_VISITED_APPARTS, a);
+    }
+
+    protected Queue<Appart> getLastVisited(HttpServletRequest request) {
+        session = request.getSession();
+        return (Queue<Appart>) session.getAttribute(Consts.LAST_VISITED_APPARTS);
+    }
 }

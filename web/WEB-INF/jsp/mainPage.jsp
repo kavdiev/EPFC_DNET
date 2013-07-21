@@ -61,8 +61,8 @@
             <tr><td>Loyer MAx<form:input path="loyerMax" /> </td></tr>
             <tr><td>Post Code<form:input path="postCode" /> </td></tr>
             <tr>
-                <td>Date debut <form:input path="dateIn" /> - Date fin
-                    <form:input path="dateOut"  /></td>
+                <td>Semaine debut <form:input path="weekIn" /> - Semaine fin
+                    <form:input path="weekOut"  /></td>
             </tr>        
             <td>Strict: <form:checkbox path="strict" />  <input name="doSearch" value="Search" type="submit" ></td>
         </tr>
@@ -93,6 +93,7 @@
     </c:forEach>
 </table>
 </td>
+<%-- il faut un if users is anonymus Menu pour se loguer ou alors menu classique --%>
 <td valign="top">
     <a href="<%=Consts.NEW_APPART_URL%>">New Appart</a> <br>
     <a href="<%=Consts.LIST_APPART_URL%>?tool=myapparts">Mes Apparts</a> <br>

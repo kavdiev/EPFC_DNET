@@ -24,6 +24,8 @@ public class User implements Serializable {
     String password;
     int postCode;
     boolean admin;
+    @Transient
+    boolean anonymus;
     // -- faut trouver une autre solution à fetchType.eager....
     @OneToMany(mappedBy = "proprio", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Appart> apparts = new ArrayList<>();
@@ -48,6 +50,14 @@ public class User implements Serializable {
         this.nom = nom;
         this.password = password;
         this.postCode = postCode;
+    }
+
+    public User(boolean anonymus) {
+        this.anonymus = anonymus;
+
+        if (anonymus) {
+            this.nom = "Anonymus";
+        }
     }
 
     public int getIdU() {
@@ -115,6 +125,14 @@ public class User implements Serializable {
         this.admin = true;
     }
 
+    public boolean isAnonymus() {
+        return anonymus;
+    }
+
+    public void setAnonymus(boolean anonymus) {
+        this.anonymus = anonymus;
+    }
+
     public int countApparts() {
         return this.getApparts().size();
     }
@@ -130,12 +148,12 @@ public class User implements Serializable {
         int i = 0;
         if (this.apparts != null && !this.apparts.isEmpty()) {
 
-           /* for (Appart a : this.apparts) {
-                if (a.locataire != null) {
-                    System.out.println(" locataire : " + a.locataire.getNom());
-                    i++;
-                }
-            } */
+            /* for (Appart a : this.apparts) {
+             if (a.locataire != null) {
+             System.out.println(" locataire : " + a.locataire.getNom());
+             i++;
+             }
+             } */
         }
         return i;
     }

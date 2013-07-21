@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import model.Appart;
-import model.LocationActive;
 import model.SearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,7 +39,6 @@ public class CtrlAppart extends genericCtrl {
     HibernateUserDao hUser;
     @Autowired
     HibernateLocationActiveDao hLoc;
-    Errors error = new Errors();
 
     public CtrlAppart() {
     }
@@ -60,17 +58,17 @@ public class CtrlAppart extends genericCtrl {
                 if (!a.isProprio(getSessionUser(request))) {
                     vue = Consts.RENT_REQUEST_VUE;
                     SearchForm searcher = super.getSearchForm(request);
-                    model.addAttribute("rent", new LocationActive(searcher.geDatetDateIn(),searcher.getDateDateOut()) );
+                 //   model.addAttribute("rent", new LocationActive(searcher.geDatetDateIn(),searcher.getDateDateOut()) );
                 } else {
                     vue = Consts.APPART_VUE;
                 }
                 model.addAttribute(Consts.APPART, a);
             } else {
-                model.addAttribute(Consts.MSG, error.getErrorMsg("a00"));
+                model.addAttribute(Consts.MSG, Errors.getErrorMsg("a00"));
                 vue = Consts.MAIN_PAGE_VUE;
             }
         } else {
-            model.addAttribute(Consts.MSG, error.getErrorMsg("1"));
+            model.addAttribute(Consts.MSG, Errors.getErrorMsg("1"));
         }
         return new ModelAndView(vue, Consts.MODEL, model);
     }
@@ -113,14 +111,14 @@ public class CtrlAppart extends genericCtrl {
                         } else {
                             vue = Consts.MAIN_PAGE_VUE;
                             model.addAttribute(Consts.SEARCH_FORM, new SearchForm());
-                            model.addAttribute(Consts.MSG, error.getErrorMsg("0"));
+                            model.addAttribute(Consts.MSG, Errors.getErrorMsg("0"));
                         }
                         break;
                     }
                 }
             }
         } else {
-            model.addAttribute(Consts.MSG, error.getErrorMsg("1"));
+            model.addAttribute(Consts.MSG, Errors.getErrorMsg("1"));
         }
         return new ModelAndView(vue, Consts.MODEL, model);
     }
@@ -166,10 +164,10 @@ public class CtrlAppart extends genericCtrl {
 
                             hAppart.save(a);
                         } else {
-                            model.addAttribute(Consts.MSG, error.getErrorMsg("a03"));
+                            model.addAttribute(Consts.MSG, Errors.getErrorMsg("a03"));
                         }
                     } else {
-                        model.addAttribute(Consts.MSG, error.getErrorMsg("a02"));
+                        model.addAttribute(Consts.MSG, Errors.getErrorMsg("a02"));
                     }
                     break;
                 }
@@ -180,10 +178,10 @@ public class CtrlAppart extends genericCtrl {
                         if (a.isProprio(getSessionUser(request))) { //verif si je suis bien proprio de l'appart
                             hAppart.save(a);
                         } else {
-                            model.addAttribute(Consts.MSG, error.getErrorMsg("a04"));
+                            model.addAttribute(Consts.MSG, Errors.getErrorMsg("a04"));
                         }
                     } else {
-                        model.addAttribute(Consts.MSG, error.getErrorMsg("a02"));
+                        model.addAttribute(Consts.MSG, Errors.getErrorMsg("a02"));
                     }
                     break;
                 }
@@ -203,10 +201,10 @@ public class CtrlAppart extends genericCtrl {
                             // on sauvegarde les modifications 
                             hAppart.save(dbAppart);
                         } else {
-                            model.addAttribute(Consts.MSG, error.getErrorMsg("a04"));
+                            model.addAttribute(Consts.MSG, Errors.getErrorMsg("a04"));
                         }
                     } else {
-                        model.addAttribute(Consts.MSG, error.getErrorMsg("a02"));
+                        model.addAttribute(Consts.MSG, Errors.getErrorMsg("a02"));
                     }
 
                     break;

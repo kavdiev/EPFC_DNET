@@ -10,14 +10,15 @@ import java.util.HashMap;
  *
  * @author baxter
  */
-public class Errors {
+public final class Errors {
 
-    HashMap errorMap = new HashMap();
-    String ok = "ok";
+    static HashMap errorMap = new HashMap();
+    static String ok = "ok";
 
     {
         errorMap.put("0", "ERRROR.... inconue");
         errorMap.put("1", "ERRROR.... vous n'etes pas logué");
+        
     //    errorMap.put("1", "Bienvenue, Register or Log-in ");
         
         errorMap.put("u00", "Enrigestrement effectué");
@@ -41,11 +42,11 @@ public class Errors {
     public Errors() {
     }
 
-    public String getErrorMsg(String errorId) {
+    public static String getErrorMsg(String errorId) {
         return (String) errorMap.get(errorId);
     }
 
-    public Boolean IsOk(String errorId) {
+    public static Boolean IsOk(String errorId) {
         if (ok.equals(errorId)) {
             return true;
         }

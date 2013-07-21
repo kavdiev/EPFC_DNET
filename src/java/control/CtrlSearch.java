@@ -32,7 +32,6 @@ public class CtrlSearch extends genericCtrl {
     HibernateUserDao hUser;
     @Autowired
     HibernateAppartDao hAppart;
-    Errors error = new Errors();
 
     public CtrlSearch() {
     }
@@ -63,7 +62,7 @@ public class CtrlSearch extends genericCtrl {
                 }
             }
             if (apparts == null || apparts.isEmpty()) {
-                model.addAttribute(Consts.MSG, error.getErrorMsg("s01"));
+                model.addAttribute(Consts.MSG, Errors.getErrorMsg("s01"));
             }
             model.addAttribute("apparts", apparts);
             model.addAttribute(Consts.SEARCH_FORM, searcher);

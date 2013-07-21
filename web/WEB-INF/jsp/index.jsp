@@ -22,6 +22,7 @@
             </tr>
             <tr>
                 <td align="center"> 
+                    <a href="user.htm?tool=noUser"><img src="img/nouser.png" width="57" height="58"></a>
                     <a href="user.htm?tool=login"><img src="img/login.png" width="57" height="58"></a>
                     <a href="user.htm?tool=newUser"><img src="img/newuser.png" width="57" height="58"></a>
                 </td>

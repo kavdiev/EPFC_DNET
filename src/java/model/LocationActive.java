@@ -5,7 +5,6 @@
 package model;
 //import java.util.Calendar;
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.*;
 
 /**
@@ -24,35 +23,59 @@ public class LocationActive implements Serializable {
     User locataire;
     @ManyToOne
     Appart appart;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    Date dateIn;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    Date dateOut;
+    int yearIn;
+    int weekIn;
+    int yearOut;
+    int weekOut;
     boolean approuved;
 
     public LocationActive() {
     }
 
-    public LocationActive(User locataire, Appart appart, Date dateIn, Date dateOut, Long id) {
+    public LocationActive(User locataire, Appart appart, int yearIn, int weekIn, int yearOut, int weekOut) {
         this.locataire = locataire;
         this.appart = appart;
-        this.dateIn = dateIn;
-        this.dateOut = dateOut;
-        this.id = id;
+        this.yearIn = yearIn;
+        this.weekIn = weekIn;
+        this.yearOut = yearOut;
+        this.weekOut = weekOut;
     }
 
-    public LocationActive(User locataire, Appart appart, Date dateIn, Date dateOut) {
-        this.locataire = locataire;
-        this.appart = appart;
-        this.dateIn = dateIn;
-        this.dateOut = dateOut;
+    
+    
+    public int getYearIn() {
+        return yearIn;
     }
 
-    public LocationActive(Date dateIn, Date dateOut) {
-        this.dateIn = dateIn;
-        this.dateOut = dateOut;
+    public void setYearIn(int yearIn) {
+        this.yearIn = yearIn;
     }
 
+    public int getWeekIn() {
+        return weekIn;
+    }
+
+    public void setWeekIn(int weekIn) {
+        this.weekIn = weekIn;
+    }
+
+    public int getYearOut() {
+        return yearOut;
+    }
+
+    public void setYearOut(int yearOut) {
+        this.yearOut = yearOut;
+    }
+
+    public int getWeekOut() {
+        return weekOut;
+    }
+
+    public void setWeekOut(int weekOut) {
+        this.weekOut = weekOut;
+    }
+
+    // a supprimer
     public LocationActive(User locataire, Appart appart) {
         this.locataire = locataire;
         this.appart = appart;
@@ -72,22 +95,6 @@ public class LocationActive implements Serializable {
 
     public void setAppart(Appart appart) {
         this.appart = appart;
-    }
-
-    public Date getDateIn() {
-        return dateIn;
-    }
-
-    public void setDateIn(Date dateIn) {
-        this.dateIn = dateIn;
-    }
-
-    public Date getDateOut() {
-        return dateOut;
-    }
-
-    public void setDateOut(Date dateOut) {
-        this.dateOut = dateOut;
     }
 
     public Long getId() {
