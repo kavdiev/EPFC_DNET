@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+    
+    <!--
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/dbagenda"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
+    -->
+    
+    
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        
+    <!--
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    -->   
+    <!--   decommenter la ligne pour rebuilder la DB, juste la premiere fois... si non la db va etre netoyé tout le temps--> 
+     <!--  <property name="hibernate.hbm2ddl.auto">create</property>--> 
+   
+        <mapping class="model.User"/>
+        <mapping class="model.LocationActive"/>
+        <mapping class="model.Appart"/>
+        
+    </session-factory>
+</hibernate-configuration>
