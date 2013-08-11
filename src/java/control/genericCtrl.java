@@ -36,7 +36,7 @@ public class genericCtrl {
     protected boolean isLoged(HttpServletRequest request) {
         session = request.getSession();
         User user = (User) session.getAttribute(Consts.CURRENT_USER);
-        if (user != null) {
+        if (user != null && user.getIdU()!=0) {
             return true;
         } else {
             return false;

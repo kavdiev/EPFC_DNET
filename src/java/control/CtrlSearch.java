@@ -46,15 +46,18 @@ public class CtrlSearch extends genericCtrl {
         String vue = "index";
         // if (request.getParameter("appartAdded") != null) {
         if ((searcher != null) || (isLoged(request))) {
+            System.out.println("loged in");
             List<Appart> apparts = null;
             searcher.resetLevel();
+            String querry = searcher.buildQuerry(super.getSessionUser(request).getIdU());
             if (searcher.isStrict()) {
-                apparts = hAppart.customSearch(searcher.buildQuerry(super.getSessionUser(request).getIdU()));
                 System.out.println("strict");
+                apparts = hAppart.customSearch(querry);
+
             } else {
                 System.out.println("no strict");
                 while (searcher.getLevel() >= 0) {
-                    apparts = hAppart.customSearch(searcher.buildQuerry(super.getSessionUser(request).getIdU()));
+                    apparts = hAppart.customSearch(querry);
                     if (apparts != null && !apparts.isEmpty()) {
                         break;
                     }
@@ -62,13 +65,13 @@ public class CtrlSearch extends genericCtrl {
                 }
             }
             if (apparts == null || apparts.isEmpty()) {
+                System.out.println("apparts empty "+Errors.getErrorMsg("s01"));
                 model.addAttribute(Consts.MSG, Errors.getErrorMsg("s01"));
             }
             model.addAttribute("apparts", apparts);
             model.addAttribute(Consts.SEARCH_FORM, searcher);
             vue = Consts.MAIN_PAGE_VUE;
         }
-        // }
         return new ModelAndView(vue, Consts.MODEL, model);
     }
 }

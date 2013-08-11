@@ -35,10 +35,16 @@
             <tr>
                 <td valign="top">
             <h> Nom: <%=u.getNom()%></h> <br>
-            <h> Post Code: <%=u.getPostCode()%></h> <br>
-            <h> Mes apparts: <%=u.countMyApparts()%></h> <br>
-            <h> Reservations : <%=u.countRentRequests()%></h> <br>
-            <a href="index.htm?logout=true"> Logout </a> <br>
+            <% if (!u.isAnonymus()) { %>
+               <h> Post Code: <%=u.getPostCode()%></h> <br>
+               <h> Mes apparts: <%=u.countMyApparts()%></h> <br>
+               <h> Reservations : <%=u.countRentRequests()%></h> <br>
+               <a href="index.htm?logout=true"> Log out </a> <br>
+            <% } else { %>
+              <a href="user.htm?tool=login"> Log in </a> <br>
+              <h> user ID: <%=u.getIdU()%></h> <br>
+            <% } %>
+            
             </td>
             <td  width="70%" align="center">
                 <table width="100%" height="100%"  border="1">

@@ -227,10 +227,16 @@ public class SearchForm {
     }
 
     public String buildQuerry(int idU) {
+        String out = "";
         //les apparts où je ne suis pas proprio
-        String out = "from Appart where proprio_idU !="+idU+" ";
-        List<String> str = new ArrayList() {
-        };
+        if (idU!=0){
+           out = "from Appart where proprio_idU !="+idU+" ";
+        }
+        else {
+           out = "from Appart";
+        }
+
+        List<String> str = new ArrayList();
         if (level >= 5) {
             if (garage) {
                 str.add("garage='1'");

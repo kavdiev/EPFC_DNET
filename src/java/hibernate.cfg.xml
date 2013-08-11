@@ -17,7 +17,7 @@
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     -->   
     <!--   decommenter la ligne pour rebuilder la DB, juste la premiere fois... si non la db va etre netoyé tout le temps--> 
-     <!--  <property name="hibernate.hbm2ddl.auto">create</property>--> 
+    <!--  <property name="hibernate.hbm2ddl.auto">create</property> -->  
    
         <mapping class="model.User"/>
         <mapping class="model.LocationActive"/>

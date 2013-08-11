@@ -12,32 +12,31 @@ import java.util.HashMap;
  */
 public final class Errors {
 
-    static HashMap errorMap = new HashMap();
+    static HashMap<String, String> errorMap = new HashMap<String, String>() {
+        {
+            put("s01", "Resultat de recherche est vide");
+            put("0", "ERRROR.... inconue");
+            put("1", "ERRROR.... vous n'etes pas logué");
+
+            //    errorMap.put("1", "Bienvenue, Register or Log-in ");
+
+            put("u00", "Enrigestrement effectué");
+            put("u01", "User n'existe pas");
+            put("u02", "Wrong password");
+            put("u03", "user existe déjà");
+            put("u04", "vous n'êtez pas autorisé pour effectuer cette action");
+            put("u05", "User est déjà admin");
+
+            put("a00", "Appart non trouvé");
+            put("a01", "Appart est déjà reservé");
+            put("a02", "Appart: error ID est manquant");
+            put("a03", "Vous ne pouvez pas louer votre propre appartement");
+            put("a04", "ce n'est pas votre appart");
+
+            put("s01", "Resultat de recherche est vide");
+        }
+    };
     static String ok = "ok";
-
-    {
-        errorMap.put("0", "ERRROR.... inconue");
-        errorMap.put("1", "ERRROR.... vous n'etes pas logué");
-        
-    //    errorMap.put("1", "Bienvenue, Register or Log-in ");
-        
-        errorMap.put("u00", "Enrigestrement effectué");
-        errorMap.put("u01", "User n'existe pas");
-        errorMap.put("u02", "Wrong password");
-        errorMap.put("u03","user existe déjà");
-        errorMap.put("u04","vous n'êtez pas autorisé pour effectuer cette action");
-        errorMap.put("u05","User est déjà admin");
-
-        errorMap.put("a00", "Appart non trouvé");
-        errorMap.put("a01", "Appart est déjà reservé");
-        errorMap.put("a02", "Appart: error ID est manquant");
-        errorMap.put("a03", "Vous ne pouvez pas louer votre propre appartement");
-        errorMap.put("a04", "ce n'est pas votre appart");
-        
-
-        errorMap.put("s01", "Resultat de recherche est vide");
-
-    }
 
     public Errors() {
     }
