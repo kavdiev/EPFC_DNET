@@ -4,8 +4,8 @@
  */
 package control;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.Appart;
@@ -36,8 +36,18 @@ public class genericCtrl {
     protected boolean isLoged(HttpServletRequest request) {
         session = request.getSession();
         User user = (User) session.getAttribute(Consts.CURRENT_USER);
-        if (user != null && user.getIdU()!=0) {
+        if (user != null && user.getIdU() != 0) {
             return true;
+        } else {
+            return false;
+        }
+    }
+    // merger les deux ???
+    protected boolean isAnonymus(HttpServletRequest request) {
+        session = request.getSession();
+        User user = (User) session.getAttribute(Consts.CURRENT_USER);
+        if (user != null) {
+            return user.isAnonymus();
         } else {
             return false;
         }
@@ -73,7 +83,7 @@ public class genericCtrl {
         session.setAttribute(Consts.CURRENT_APPART, a);
     }
 
-    protected void setAnnonymusUser(HttpServletRequest request) {
+    protected void setAnonymusUser(HttpServletRequest request) {
         session = request.getSession();
         session.setAttribute(Consts.CURRENT_USER, new User(true));
     }
@@ -101,21 +111,21 @@ public class genericCtrl {
     protected void addAppart2LastVisited(Appart a, HttpServletRequest request) {
         // 10 appart max
         session = request.getSession();
-        Queue<Appart> lastVisited = (Queue<Appart>) session.getAttribute(Consts.LAST_VISITED_APPARTS);
+        List<Appart> lastVisited = (List<Appart>) session.getAttribute(Consts.LAST_VISITED_APPARTS);
         if (lastVisited == null) {
-            lastVisited = new LinkedList<>();
+            lastVisited = new ArrayList<>();
         }
         lastVisited.add(a);
 
         if (lastVisited.size() > 10) {
             //on supprime le premier ajouté (le plus OLD)
-            lastVisited.remove();  //on ne recupere pas l'objet renvoyé par Remove, car on n'a pas besoin
+            lastVisited.remove(1);  // on supprime le premier element
         }
-        session.setAttribute(Consts.LAST_VISITED_APPARTS, a);
+        session.setAttribute(Consts.LAST_VISITED_APPARTS, lastVisited);
     }
 
-    protected Queue<Appart> getLastVisited(HttpServletRequest request) {
+    protected List<Appart> getLastVisited(HttpServletRequest request) {
         session = request.getSession();
-        return (Queue<Appart>) session.getAttribute(Consts.LAST_VISITED_APPARTS);
+        return (List<Appart>) session.getAttribute(Consts.LAST_VISITED_APPARTS);
     }
 }

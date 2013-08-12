@@ -57,6 +57,7 @@ public class CtrlAppart extends genericCtrl {
                 Appart a = (Appart) hAppart.selectOne(Integer.parseInt(id));
                 if (!a.isProprio(getSessionUser(request))) {
                     vue = Consts.RENT_REQUEST_VUE;
+                    super.addAppart2LastVisited(a, request);
                     SearchForm searcher = super.getSearchForm(request);
                     //   model.addAttribute("rent", new LocationActive(searcher.geDatetDateIn(),searcher.getDateDateOut()) );
                 } else {
@@ -68,7 +69,12 @@ public class CtrlAppart extends genericCtrl {
                 vue = Consts.MAIN_PAGE_VUE;
             }
         } else {
-            model.addAttribute(Consts.MSG, Errors.getErrorMsg("1"));
+            // verification facultative ...  j'aime pas trop il faut restructurer les ifs
+            if (isAnonymus(request)) {
+                vue = Consts.APPART_VUE;
+            } else {
+                model.addAttribute(Consts.MSG, Errors.getErrorMsg("1"));
+            }
         }
         return new ModelAndView(vue, Consts.MODEL, model);
     }
@@ -118,7 +124,12 @@ public class CtrlAppart extends genericCtrl {
                 }
             }
         } else {
-            model.addAttribute(Consts.MSG, Errors.getErrorMsg("1"));
+            if (action.equals("lasts")) {
+                List<Appart> apparts = super.getLastVisited(request);
+                model.addAttribute("apparts", apparts);
+            } else {
+                model.addAttribute(Consts.MSG, Errors.getErrorMsg("1"));
+            }
         }
         return new ModelAndView(vue, Consts.MODEL, model);
     }

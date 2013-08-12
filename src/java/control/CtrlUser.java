@@ -71,7 +71,7 @@ public class CtrlUser extends genericCtrl {
                     break;
                 case "noUser":
                     vue = Consts.MAIN_PAGE_VUE;
-                    setAnnonymusUser(request);
+                    setAnonymusUser(request);
                     model.addAttribute(Consts.SEARCH_FORM, getSearchForm(request));
                     break;
             }

@@ -44,7 +44,7 @@
               <a href="user.htm?tool=login"> Log in </a> <br>
               <h> user ID: <%=u.getIdU()%></h> <br>
             <% } %>
-            
+             <a href="<%=Consts.LIST_APPART_URL%>?tool=lasts">Derniers appars consultes</a> <br>
             </td>
             <td  width="70%" align="center">
                 <table width="100%" height="100%"  border="1">
