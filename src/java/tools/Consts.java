@@ -31,6 +31,8 @@ public final class Consts {
     public static final String CURRENT_APPART = "cappart";
     public static final String CURRENT_SEARCHER = "csearch";
     public static final String LAST_VISITED_APPARTS = "lastapparts";
+    public static final String LABEL = "label";
+    
     
     
     // vues

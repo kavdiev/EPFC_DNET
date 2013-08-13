@@ -43,6 +43,7 @@ public class genericCtrl {
         }
     }
     // merger les deux ???
+
     protected boolean isAnonymus(HttpServletRequest request) {
         session = request.getSession();
         User user = (User) session.getAttribute(Consts.CURRENT_USER);
@@ -115,7 +116,9 @@ public class genericCtrl {
         if (lastVisited == null) {
             lastVisited = new ArrayList<>();
         }
-        lastVisited.add(a);
+        if (!lastVisited.contains(a)) {
+            lastVisited.add(a);
+        }
 
         if (lastVisited.size() > 10) {
             //on supprime le premier ajouté (le plus OLD)

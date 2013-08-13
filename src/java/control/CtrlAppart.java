@@ -52,29 +52,30 @@ public class CtrlAppart extends genericCtrl {
             ModelMap model) {
         System.out.println("in get show appart");
         String vue = "index";
-        if (isLoged(request)) {
-            if (id != null) {
-                Appart a = (Appart) hAppart.selectOne(Integer.parseInt(id));
+        if (id != null) {
+            Appart a = (Appart) hAppart.selectOne(Integer.parseInt(id));
+            super.addAppart2LastVisited(a, request);
+            if (isLoged(request)) {
                 if (!a.isProprio(getSessionUser(request))) {
                     vue = Consts.RENT_REQUEST_VUE;
-                    super.addAppart2LastVisited(a, request);
                     SearchForm searcher = super.getSearchForm(request);
                     //   model.addAttribute("rent", new LocationActive(searcher.geDatetDateIn(),searcher.getDateDateOut()) );
                 } else {
+                    // proprio
                     vue = Consts.APPART_VUE;
                 }
-                model.addAttribute(Consts.APPART, a);
             } else {
-                model.addAttribute(Consts.MSG, Errors.getErrorMsg("a00"));
-                vue = Consts.MAIN_PAGE_VUE;
+                // verification facultative ...  j'aime pas trop il faut restructurer les ifs
+                if (isAnonymus(request)) {
+                    vue = Consts.APPART_VUE;
+                } else {
+                    model.addAttribute(Consts.MSG, Errors.getErrorMsg("1"));
+                }
             }
+            model.addAttribute(Consts.APPART, a);
         } else {
-            // verification facultative ...  j'aime pas trop il faut restructurer les ifs
-            if (isAnonymus(request)) {
-                vue = Consts.APPART_VUE;
-            } else {
-                model.addAttribute(Consts.MSG, Errors.getErrorMsg("1"));
-            }
+            model.addAttribute(Consts.MSG, Errors.getErrorMsg("a00"));
+            vue = Consts.MAIN_PAGE_VUE;
         }
         return new ModelAndView(vue, Consts.MODEL, model);
     }
@@ -88,45 +89,48 @@ public class CtrlAppart extends genericCtrl {
         System.out.println("in get show appart");
         String vue = Consts.INDEX_VUE;
         String action = request.getParameter("tool");
-        if (isLoged(request)) {
-            if (action != null) {
-                vue = "apparts";
-                switch (action) {
-                    case "myapparts": {
+        if (action.equals("lasts")) {
+            List<Appart> apparts = super.getLastVisited(request);
+            model.addAttribute("apparts", apparts);
+            model.addAttribute(Consts.LABEL,"Last visited");
+            System.out.println(" label :");
+            vue = Consts.APPARTS;
+        } else {
+            if (isLoged(request)) {
+                if (action != null) {
+                    vue = "apparts";
+                    switch (action) {
+                        case "myapparts": {
 
-                        List<Appart> apparts = (List<Appart>) (List<?>) hAppart.selectUsersApparts(getSessionUser(request).getIdU());
-                        model.addAttribute("apparts", apparts);
-                        break;
-                    }
-                    case "toapprove": {
-                        List<Appart> apparts = (List<Appart>) (List<?>) hAppart.selectUsersApparts(getSessionUser(request).getIdU());
-                        List<Appart> reservations = new ArrayList();
-                        for (Appart a : apparts) {
-                            /* if (a.getLocataire() != null) {
-                             reservations.add(a);
-                             }*/
-                        }
-                        model.addAttribute("apparts", reservations);
-                        break;
-                    }
-                    case "showusersapparts": {
-                        if (id != null) {
-                            List<Appart> apparts = (List<Appart>) (List<?>) hAppart.selectUsersApparts(Integer.parseInt(id));
+                            List<Appart> apparts = (List<Appart>) (List<?>) hAppart.selectUsersApparts(getSessionUser(request).getIdU());
                             model.addAttribute("apparts", apparts);
-
-                        } else {
-                            vue = Consts.MAIN_PAGE_VUE;
-                            model.addAttribute(Consts.SEARCH_FORM, new SearchForm());
-                            model.addAttribute(Consts.MSG, Errors.getErrorMsg("0"));
+                            break;
                         }
-                        break;
+                        case "toapprove": {
+                            List<Appart> apparts = (List<Appart>) (List<?>) hAppart.selectUsersApparts(getSessionUser(request).getIdU());
+                            List<Appart> reservations = new ArrayList();
+                            for (Appart a : apparts) {
+                                /* if (a.getLocataire() != null) {
+                                 reservations.add(a);
+                                 }*/
+                            }
+                            model.addAttribute("apparts", reservations);
+                            break;
+                        }
+                        case "showusersapparts": {
+                            if (id != null) {
+                                List<Appart> apparts = (List<Appart>) (List<?>) hAppart.selectUsersApparts(Integer.parseInt(id));
+                                model.addAttribute("apparts", apparts);
+
+                            } else {
+                                vue = Consts.MAIN_PAGE_VUE;
+                                model.addAttribute(Consts.SEARCH_FORM, new SearchForm());
+                                model.addAttribute(Consts.MSG, Errors.getErrorMsg("0"));
+                            }
+                            break;
+                        }
                     }
                 }
-            }
-        } else {
-            if (action.equals("lasts")) {
-                List<Appart> apparts = super.getLastVisited(request);
-                model.addAttribute("apparts", apparts);
             } else {
                 model.addAttribute(Consts.MSG, Errors.getErrorMsg("1"));
             }

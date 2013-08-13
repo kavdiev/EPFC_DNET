@@ -26,6 +26,9 @@
             <tr>
                 <td colspan="5" bgcolor="#00FFFF" > <h1 align="center" >Fiche Appartement</h1></td>
             </tr>
+        </table>
+        <% if (!u.isAnonymus()) {%>
+        <table width="700" height="100%" border="1"  align="center">
             <tr>
                 <td align="left" >ID :</td> <td align="left" >${model.appart.idA}</td> 
             </tr>
@@ -36,7 +39,8 @@
                 <td align="left" >Locataire :</td> <td align="left" >--</td> 
             </tr>
             <tr><td bgcolor="#C0C0C0" width="30px" height="26px"><img src="img/i_mesg.gif"></td>
-                <td align="left" bgcolor="#C0C0C0" colspan="4"  height="26px"> Message: ${model.msg} </td></tr>
+                <td align="left" bgcolor="#C0C0C0" colspan="4"  height="26px"> Message: ${model.msg} </td>
+            </tr>
         </table>
         <form:form method="POST" action="appart.htm" commandName="appart">
             <table  width="700" height="100%" border="1"  align="center">
@@ -56,7 +60,7 @@
                     <option value="5">5</option>
                     <option value="6">6</option>
                 </form:select>
-                    ${appart.pieces}
+                ${appart.pieces}
             </td>
             <td><form:input path="superficie" /> </td>
             <td><form:input path="loyer" /> </td>
@@ -70,6 +74,26 @@
             </tr>
         </table> 
     </form:form>
+    <% } else // code pour anonymus
+    {%>
+    <table width="700" height="100%" border="1"  align="center"> 
+        <tr>
+            <td bgcolor="#3090C7">pieces</td>
+            <td bgcolor="#3090C7">Superficie</td>
+            <td bgcolor="#3090C7">Loyer</td>
+            <td bgcolor="#3090C7">Post Code</td>
+        </tr>
+        <tr>
+            <td>${model.appart.pieces}</td>
+            <td>${model.appart.superficie}</td>
+            <td>${model.appart.loyer} </td>
+            <td>${model.appart.postCode} </td>
+        </tr>
+        <tr>
+            <td colspan="5" align="center" > <a href="user.htm?tool=login"> Log in </a>  to rent <br></td>
+        </tr>
+    </table>
+    <% }%>
 
 </body>
 </html>

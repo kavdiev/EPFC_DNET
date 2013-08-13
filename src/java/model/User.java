@@ -55,7 +55,7 @@ public class User implements Serializable {
     public User(boolean anonymus) {
         this.anonymus = anonymus;
         if (anonymus) {
-            this.nom = "Anonymus"+this.getClass();
+            this.nom = "Anonymus"+this.toString();
         }
     }
 

@@ -35,16 +35,15 @@
             <tr>
                 <td valign="top">
             <h> Nom: <%=u.getNom()%></h> <br>
-            <% if (!u.isAnonymus()) { %>
-               <h> Post Code: <%=u.getPostCode()%></h> <br>
-               <h> Mes apparts: <%=u.countMyApparts()%></h> <br>
-               <h> Reservations : <%=u.countRentRequests()%></h> <br>
-               <a href="index.htm?logout=true"> Log out </a> <br>
-            <% } else { %>
-              <a href="user.htm?tool=login"> Log in </a> <br>
-              <h> user ID: <%=u.getIdU()%></h> <br>
-            <% } %>
-             <a href="<%=Consts.LIST_APPART_URL%>?tool=lasts">Derniers appars consultes</a> <br>
+                <% if (!u.isAnonymus()) {%>
+            <h> Post Code: <%=u.getPostCode()%></h> <br>
+            <h> Mes apparts: <%=u.countMyApparts()%></h> <br>
+            <h> Reservations : <%=u.countRentRequests()%></h> <br>
+            <a href="index.htm?logout=true"> Log out </a> <br>
+            <% } else {%>
+            <a href="user.htm?tool=login"> Log in </a> <br>
+            <% }%>
+            <a href="<%=Consts.LIST_APPART_URL%>?tool=lasts">Derniers appars consultes</a> <br>
             </td>
             <td  width="70%" align="center">
                 <table width="100%" height="100%"  border="1">
@@ -101,13 +100,16 @@
 </td>
 <%-- il faut un if users is anonymus Menu pour se loguer ou alors menu classique --%>
 <td valign="top">
+    <% if (!u.isAnonymus()) {%>
     <a href="<%=Consts.NEW_APPART_URL%>">New Appart</a> <br>
     <a href="<%=Consts.LIST_APPART_URL%>?tool=myapparts">Mes Apparts</a> <br>
     <a href="<%=Consts.LIST_APPART_URL%>?tool=toapprove">A confirmer </a> <br>
-    <%--     if (u.isAdmin()) {
-            out = out + " <a href=\"" + Consts.LIST_USERS_URL + "?tool=showall\"> Show Users </a> <br>";
-            out = out + " <a href=\"" + Consts.LIST_USERS_URL + "?tool=showadmins\">Show Admins </a> <br>";
-            out = out + " <a href=\"" + Consts.LIST_USERS_URL + "?tool=showproprios\">Show Proprios </a> <br>"; --%>
+    <% }%>
+    <% if (u.isAdmin()) {%>
+    <a href="<%=Consts.LIST_USERS_URL%>?tool=showall"> Show Users </a> <br>
+    <a href="<%=Consts.LIST_USERS_URL%>?tool=showadmins">Show Admins </a> <br>
+    <a href="<%=Consts.LIST_USERS_URL%>?tool=showproprios">Show Proprios </a> <br>
+    <% }%>
 </td>
 </tr>
 </table>

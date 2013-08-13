@@ -14,10 +14,21 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <% if (request.getAttribute(Consts.LABEL) == null) {%>
         <title><%=u.getNom()%>'s Apparsts</title>
+        <% } else {%>
+        <title>Last visited Apparsts</title>
+        <% }%>
     </head>
     <body>
-        <h1 align="center"><%=u.getNom()%>'s Apparsts</h1>
+        <h1 align="center">
+            <% if (request.getAttribute(Consts.LABEL) == null) {%>
+            <%=u.getNom()%>'s Apparsts
+            <% } else {
+            %>
+            Last visited Apparsts
+            <% }%>    
+        </h1>
         <br>
         <table width="700" height="100%" border="1"  align="center" >
             <tr><td  bgcolor="#3090C7">Id</>

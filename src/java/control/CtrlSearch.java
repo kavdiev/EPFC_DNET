@@ -6,7 +6,6 @@ package control;
 
 import dao.HibernateAppartDao;
 import dao.HibernateUserDao;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import model.Appart;
