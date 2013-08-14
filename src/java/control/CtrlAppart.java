@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import model.Appart;
+import model.LocationActive;
 import model.SearchForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -59,7 +60,7 @@ public class CtrlAppart extends genericCtrl {
                 if (!a.isProprio(getSessionUser(request))) {
                     vue = Consts.RENT_REQUEST_VUE;
                     SearchForm searcher = super.getSearchForm(request);
-                    //   model.addAttribute("rent", new LocationActive(searcher.geDatetDateIn(),searcher.getDateDateOut()) );
+                    model.addAttribute("rent", new LocationActive() );
                 } else {
                     // proprio
                     vue = Consts.APPART_VUE;
