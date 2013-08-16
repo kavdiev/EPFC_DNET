@@ -14,9 +14,9 @@ public final class Errors {
 
     static HashMap<String, String> errorMap = new HashMap<String, String>() {
         {
-            put("s01", "Resultat de recherche est vide");
             put("0", "ERRROR.... inconue");
             put("1", "ERRROR.... vous n'etes pas logué");
+            put("2", "ERRROR.... problem DB");
 
             //    errorMap.put("1", "Bienvenue, Register or Log-in ");
 

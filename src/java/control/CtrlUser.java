@@ -177,8 +177,6 @@ public class CtrlUser extends genericCtrl {
                 String errorId = hUser.userExist(u.getNom());
                 if (Errors.IsOk(errorId)) {
                     hUser.save(u);
-                    System.out.println("save it");
-                    System.out.println("go index");
                     model.addAttribute(Consts.MSG, Errors.getErrorMsg("u00"));
                 } else {
                     vue = Consts.NEW_USER_VUE;

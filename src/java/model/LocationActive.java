@@ -41,6 +41,11 @@ public class LocationActive implements Serializable {
         this.weekOut = weekOut;
     }
 
+    public LocationActive(int weekIn, int weekOut) {
+        this.weekIn = weekIn;
+        this.weekOut = weekOut;
+    }
+
     
     
     public int getYearIn() {

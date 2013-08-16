@@ -7,6 +7,7 @@ package dao;
 import java.util.List;
 import model.LocationActive;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
@@ -75,5 +76,15 @@ public class HibernateLocationActiveDao implements IGenericDao {
     public Object selectOne(String name) {
        System.out.println(" can't be aplied for location active  :");
        return null;
+    }
+
+    @Override
+    public int count() {
+        return DataAccessUtils.intResult(hibernateTemplate.find("select count(*) from LocationActive"));
+    }
+
+    @Override
+    public Object getLast() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

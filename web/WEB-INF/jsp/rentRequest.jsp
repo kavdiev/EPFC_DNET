@@ -50,7 +50,7 @@
             </tr>
         </table> 
         <form:form method="POST" action="rentRequest.htm" commandName="rent">
-            <input name="id" value="${model.appart.idA}"  type="hidden">
+            <input name="idR" value="${model.appart.idA}"  type="hidden">
             <table  width="700" height="100%" border="1"  align="center">
                 <tr>
                 <td>Semaine de debut <form:select path="weekIn">

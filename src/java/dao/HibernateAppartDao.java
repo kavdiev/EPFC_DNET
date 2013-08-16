@@ -7,6 +7,7 @@ package dao;
 import java.util.List;
 import model.Appart;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
@@ -85,6 +86,16 @@ public class HibernateAppartDao implements IGenericDao {
        System.out.println(" can't be aplied for appart  :");
        return null;
         // throw new UnsupportedOperationException("Not supported in Appart"); 
+    }
+
+    @Override
+    public int count() {
+        return DataAccessUtils.intResult(hibernateTemplate.find("select count(*) from Appart"));
+    }
+
+    @Override
+    public Object getLast() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
  

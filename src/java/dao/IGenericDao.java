@@ -21,4 +21,9 @@ public interface IGenericDao {
     Object selectOne(long id);
 
     Object selectOne (String name);
+    
+    int count ();
+    
+    Object getLast();
+    
 }

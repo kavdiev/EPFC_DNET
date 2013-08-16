@@ -23,6 +23,7 @@ public final class Consts {
     public static final String NEW_APPART_URL = "newappart.htm";
     public static final String LIST_APPART_URL = "apparts.htm";
     public static final String RESERVATION_URL = "rentRequest.htm";
+    public static final String STATS_URL = "stats.htm";
     
     
     // names

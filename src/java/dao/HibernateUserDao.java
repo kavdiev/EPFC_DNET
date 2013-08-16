@@ -6,7 +6,11 @@ package dao;
 
 import java.util.List;
 import model.User;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
@@ -61,6 +65,7 @@ public class HibernateUserDao implements IGenericDao {
     public List<Object> selectAll() {
         return hibernateTemplate.find(" from User");
     }
+
     public List<Object> selectAllAdmins() {
         return hibernateTemplate.find(" from User where admin=1");
     }
@@ -95,21 +100,35 @@ public class HibernateUserDao implements IGenericDao {
 
         User u = (User) selectOne(name);
         if (u != null) {
-            if (!u.getPassword().equals(password)){
+            if (!u.getPassword().equals(password)) {
                 return "u02";
-            } 
+            }
         } else {
-            return "u01";         
+            return "u01";
         }
         return "ok";
     }
-    
-    public String userExist (String name) {
-     User u = (User) selectOne(name);
-      if (u!=null) {
-        return "u03"; 
-      }
+
+    public String userExist(String name) {
+        User u = (User) selectOne(name);
+        if (u != null) {
+            return "u03";
+        }
 
         return "ok";  // ok => n'existe pas
+    }
+
+    @Override
+    public int count() {
+        return DataAccessUtils.intResult(hibernateTemplate.find("select count(*) from User"));
+    }
+//  cette maniere est plus efficace elle n'instancie pas d'objet user. (lazy possibilité d'utiliser le selectAdmins de plus haut et regarder la taille de la liste
+    public int countAdmins() {
+        return DataAccessUtils.intResult(hibernateTemplate.find("select count(*) from User where admin=1"));
+    }
+
+    @Override
+    public Object getLast() {
+        return (User) hibernateTemplate.find(" from User where idU= (select max(idU) from User)").get(0);
     }
 }

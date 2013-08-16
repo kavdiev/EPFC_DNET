@@ -63,16 +63,18 @@ public class CtrlRent extends genericCtrl {
         String vue = Consts.INDEX_VUE;
 
         String action = request.getParameter("requestRent");
-        System.out.println("action="+action);
+        System.out.println("action=" + action);
         if (isLoged(request)) {
             if (action != null && rent != null) {
                 vue = Consts.MAIN_PAGE_VUE;
-                String sId = request.getParameter("id"); // id de l'appart en question
-                 System.out.println("sid="+sId);
-                rent.setLocataire(super.getSessionUser(request));
+                String sId = request.getParameter("idR"); // id de l'appart en question
+                System.out.println("sid=" + sId);
+                rent.setLocataire(super.getSessionUser(request)); // il faut encore une verif sur appart ... ehhh ou le prendre de currentAppart
                 rent.setAppart((Appart) hAppart.selectOne(Integer.parseInt(sId)));
-                hLoc.save(rent);
-
+                System.out.println(" id "+rent.getId()+" locataire "+rent.getLocataire().getNom()+" appart "+rent.getAppart().getIdA());
+                if (!hLoc.save(rent)) {
+                    model.addAttribute(Consts.MSG, Errors.getErrorMsg("2"));
+                }
                 model.addAttribute(Consts.SEARCH_FORM, getSearchForm(request));
             }
         } else {

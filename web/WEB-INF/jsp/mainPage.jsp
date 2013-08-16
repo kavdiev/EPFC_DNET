@@ -109,6 +109,7 @@
     <a href="<%=Consts.LIST_USERS_URL%>?tool=showall"> Show Users </a> <br>
     <a href="<%=Consts.LIST_USERS_URL%>?tool=showadmins">Show Admins </a> <br>
     <a href="<%=Consts.LIST_USERS_URL%>?tool=showproprios">Show Proprios </a> <br>
+    <a href="<%=Consts.STATS_URL%>">Stats </a> <br>
     <% }%>
 </td>
 </tr>
