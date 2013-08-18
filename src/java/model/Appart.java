@@ -33,8 +33,16 @@ public class Appart implements Serializable {
     @OneToMany(mappedBy = "appart", cascade = CascadeType.ALL)
     private List<LocationActive> locations = new ArrayList<>();
 
-    public Appart() {
+    @Override
+    public boolean equals(Object obj) {
+        if (((Appart) obj).idA == this.idA) {
+            return true;
+        } else {
+            return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+        }
+    }
 
+    public Appart() {
     }
 
     public Appart(int idA, String type, int superficie, int pieces, int loyer, boolean garage, boolean piscine, int postCode, String rue, String pays, User proprio) {

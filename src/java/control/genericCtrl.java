@@ -116,9 +116,7 @@ public class genericCtrl {
         if (lastVisited == null) {
             lastVisited = new ArrayList<>();
         }
-        if (!lastVisited.contains(a)) {  // il faut une comparaison objet ... et c'est des objets diferents même si c'est le même appart
-            // donc il faut obliger le contains de se baser sur idA
-            // pour ca il faut etendre Arraylist et override uquals
+        if (!lastVisited.contains(a)) {  // j'ai overridé la function equals sur appart.
             lastVisited.add(a);
         }
 

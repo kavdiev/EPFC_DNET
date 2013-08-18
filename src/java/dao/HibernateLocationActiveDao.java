@@ -6,6 +6,9 @@ package dao;
 
 import java.util.List;
 import model.LocationActive;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -22,6 +25,9 @@ public class HibernateLocationActiveDao implements IGenericDao {
     }
     @Autowired
     private HibernateTemplate hibernateTemplate;
+    
+    @Autowired
+    HibernateAppartDao hAppart;
 
     @Override
     public boolean delete(long id) {
@@ -39,7 +45,10 @@ public class HibernateLocationActiveDao implements IGenericDao {
     }
 
     public boolean isFree(LocationActive loc) {
-        List<LocationActive> locations = hibernateTemplate.find(" from LocationActive where idA=" + loc.getAppart().getIdA()); // ajouter semaine in et out.. + year
+        Criteria crit= hibernateTemplate.getSessionFactory().getCurrentSession().createCriteria(LocationActive.class);
+        Criterion week = Restrictions.between("weekIn", loc.getWeekIn(), loc.getWeekOut());
+        crit.add(week); //// remplace le tamplete habituelle
+        List<LocationActive> locations = hibernateTemplate.find(" from LocationActive where idA=" + loc.getAppart().getIdA()+" "); // ajouter semaine in et out.. + year
         if (locations.isEmpty()) {
             return true;
         } else {
@@ -69,7 +78,8 @@ public class HibernateLocationActiveDao implements IGenericDao {
     }
 
     public List<LocationActive> selectToAprove(int idU) {
-        return hibernateTemplate.find(" from LocationActive where approuved=0 ");//   AND locataire_idU='"+idU+"'");
+        
+        return hibernateTemplate.find("from LocationActive  where approuved=0 AND appart_idA not in ( from Appart where proprio_idU="+idU+")");
     }
 
     @Override
