@@ -38,6 +38,15 @@ public class HibernateLocationActiveDao implements IGenericDao {
         return false;
     }
 
+    public boolean isFree(LocationActive loc) {
+        List<LocationActive> locations = hibernateTemplate.find(" from LocationActive where idA=" + loc.getAppart().getIdA()); // ajouter semaine in et out.. + year
+        if (locations.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public boolean save(Object loc) {
         System.err.println("save location active");
@@ -59,6 +68,10 @@ public class HibernateLocationActiveDao implements IGenericDao {
         return hibernateTemplate.find(" from LocationActive");
     }
 
+    public List<LocationActive> selectToAprove(int idU) {
+        return hibernateTemplate.find(" from LocationActive where approuved=0 ");//   AND locataire_idU='"+idU+"'");
+    }
+
     @Override
     public Object selectOne(long id) {
         LocationActive loc = null;
@@ -74,8 +87,8 @@ public class HibernateLocationActiveDao implements IGenericDao {
 
     @Override
     public Object selectOne(String name) {
-       System.out.println(" can't be aplied for location active  :");
-       return null;
+        System.out.println(" can't be aplied for location active  :");
+        return null;
     }
 
     @Override

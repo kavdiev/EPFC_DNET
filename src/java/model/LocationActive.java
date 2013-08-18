@@ -5,6 +5,8 @@
 package model;
 //import java.util.Calendar;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -28,8 +30,17 @@ public class LocationActive implements Serializable {
     int yearOut;
     int weekOut;
     boolean approuved;
+    @Transient
+    public List<Integer> weeks;
 
     public LocationActive() {
+    }
+
+    {
+        weeks = new ArrayList<>();
+        for (int i = 1; i < 53; i++) {
+            weeks.add(i);
+        }
     }
 
     public LocationActive(User locataire, Appart appart, int yearIn, int weekIn, int yearOut, int weekOut) {
@@ -45,9 +56,15 @@ public class LocationActive implements Serializable {
         this.weekIn = weekIn;
         this.weekOut = weekOut;
     }
+  
+    public List<Integer> getWeeks() {
+        return weeks;
+    }
 
-    
-    
+    public void setWeeks(List<Integer> weeks) {
+        this.weeks = weeks;
+    }
+
     public int getYearIn() {
         return yearIn;
     }
@@ -117,5 +134,4 @@ public class LocationActive implements Serializable {
     public void setApprouved(boolean approuved) {
         this.approuved = approuved;
     }
-    
 }

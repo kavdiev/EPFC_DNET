@@ -7,6 +7,8 @@ package control;
 import dao.HibernateAppartDao;
 import dao.HibernateLocationActiveDao;
 import dao.HibernateUserDao;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import model.Appart;
 import model.LocationActive;
@@ -40,7 +42,7 @@ public class CtrlRent extends genericCtrl {
     public ModelAndView getForm(HttpServletRequest request,
             @RequestParam(required = false, value = "id") String id,
             ModelMap model) {
-        System.out.println("in get show appart");
+        System.out.println("in get rent");
         String vue = "index";
         if ((isLoged(request)) && (id != null)) {
             Appart a = (Appart) hAppart.selectOne(Integer.parseInt(id));
@@ -71,7 +73,47 @@ public class CtrlRent extends genericCtrl {
                 System.out.println("sid=" + sId);
                 rent.setLocataire(super.getSessionUser(request)); // il faut encore une verif sur appart ... ehhh ou le prendre de currentAppart
                 rent.setAppart((Appart) hAppart.selectOne(Integer.parseInt(sId)));
-                System.out.println(" id "+rent.getId()+" locataire "+rent.getLocataire().getNom()+" appart "+rent.getAppart().getIdA());
+                System.out.println(" id " + rent.getId() + " locataire " + rent.getLocataire().getNom() + " appart " + rent.getAppart().getIdA());
+                if (!hLoc.save(rent)) {
+                    model.addAttribute(Consts.MSG, Errors.getErrorMsg("2"));
+                }
+                model.addAttribute(Consts.SEARCH_FORM, getSearchForm(request));
+            }
+        } else {
+            model.addAttribute(Consts.MSG, Errors.getErrorMsg("1"));
+        }
+        return new ModelAndView(vue, Consts.MODEL, model);
+    }
+
+    @RequestMapping(value = "/toApprove.htm", method = RequestMethod.GET)
+    public ModelAndView getFormToApprove(HttpServletRequest request,
+            ModelMap model) {
+        System.out.println("in approve");
+        String vue = Consts.TO_APPROVE_VUE;
+        if (isLoged(request)) {
+            model.addAttribute(Consts.RESERVATIONS, hLoc.selectToAprove(getSessionUser(request).getIdU()));
+        }
+        return new ModelAndView(vue, Consts.MODEL, model);
+    }
+
+    // ---------- post methode   (submite )
+    @RequestMapping(value = "/toApprove.htm", method = RequestMethod.POST)
+    public ModelAndView submitApprove(HttpServletRequest request,
+            ModelMap model,
+            @ModelAttribute("rent") LocationActive rent) {
+        System.out.println("in post");
+        String vue = Consts.INDEX_VUE;
+
+        String action = request.getParameter("requestRent");
+        System.out.println("action=" + action);
+        if (isLoged(request)) {
+            if (action != null && rent != null) {
+                vue = Consts.MAIN_PAGE_VUE;
+                String sId = request.getParameter("idR"); // id de l'appart en question
+                System.out.println("sid=" + sId);
+                rent.setLocataire(super.getSessionUser(request)); // il faut encore une verif sur appart ... ehhh ou le prendre de currentAppart
+                rent.setAppart((Appart) hAppart.selectOne(Integer.parseInt(sId)));
+                System.out.println(" id " + rent.getId() + " locataire " + rent.getLocataire().getNom() + " appart " + rent.getAppart().getIdA());
                 if (!hLoc.save(rent)) {
                     model.addAttribute(Consts.MSG, Errors.getErrorMsg("2"));
                 }

@@ -6,7 +6,7 @@ package model;
 
 import dao.HibernateAppartDao;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
  * @author baxter
  */
 @Component
+@SuppressWarnings("empty-statement")
 public class SearchForm {
 
     private final int SEARCH_LEVEL = 5;
@@ -41,15 +42,14 @@ public class SearchForm {
     int weekIn;
     int yearOut;
     int weekOut;
-
+    public List<Integer> weeks;
     @Autowired
     HibernateAppartDao db;
     private int level = SEARCH_LEVEL;
-    
+
     public SearchForm() {
     }
 
-    
     public SearchForm(int pieces, int superficie, int loyerMax, int loyerMin, boolean garage, boolean piscine, int postCode) {
 
         this.pieces = pieces;
@@ -77,8 +77,30 @@ public class SearchForm {
         this.yearOut = yearOut;
         this.weekOut = weekOut;
     }
-    
-    
+
+    {
+        Calendar cal = Calendar.getInstance();
+        if (this.weekIn == 0) {
+            this.weekIn = cal.get(Calendar.WEEK_OF_YEAR);
+            System.out.println("out = "+weekIn);
+        }
+        if (this.weekOut == 0) {
+            this.weekOut = cal.get(Calendar.WEEK_OF_YEAR) + 1;
+            System.out.println("out = "+weekOut);
+        }
+        weeks = new ArrayList<>();
+        for (int i = 1; i < 53; i++) {
+            weeks.add(i);
+        }
+    }
+
+    public List<Integer> getWeeks() {
+        return weeks;
+    }
+
+    public void setWeeks(List<Integer> weeks) {
+        this.weeks = weeks;
+    }
 
     public boolean isStrict() {
         return strict;
@@ -229,11 +251,10 @@ public class SearchForm {
     public String buildQuerry(int idU) {
         String out = "";
         //les apparts où je ne suis pas proprio
-        if (idU!=0){
-           out = "from Appart where proprio_idU !="+idU+" ";
-        }
-        else {
-           out = "from Appart";
+        if (idU != 0) {
+            out = "from Appart where proprio_idU !=" + idU + " ";
+        } else {
+            out = "from Appart";
         }
 
         List<String> str = new ArrayList();
@@ -275,14 +296,14 @@ public class SearchForm {
         if (!str.isEmpty()) {
             out = out + parseQuerry(str);
         }
-        
-       // out = out +" AND idA not in "+ buildDateQuerry();
+
+        // out = out +" AND idA not in "+ buildDateQuerry();
         System.out.println(" out :" + out);
         return out;
     }
 
     private String parseQuerry(List<String> str) {
-         String out = " AND";
+        String out = " AND";
         for (int i = 0; i < str.size(); i++) {
             out = out + " " + str.get(i);
             if (i != str.size() - 1) {
@@ -292,23 +313,22 @@ public class SearchForm {
 
         return out;
     }
-    
-  /*  private String buildDateQuerry() {
-        return "( select appart_idA from LocationActive where LocationActive.dateIn<='"+
-                this.dateOut+"' AND LocationActive.dateOut>='"+this.dateIn+"')";
-    } */
+    /*  private String buildDateQuerry() {
+     return "( select appart_idA from LocationActive where LocationActive.dateIn<='"+
+     this.dateOut+"' AND LocationActive.dateOut>='"+this.dateIn+"')";
+     } */
 
-  /*  private Date str2Date(String input) {
-        String tmp[] = input.split("-");
-        if (tmp.length == 3) {
-            int annee = Integer.parseInt(tmp[0]);
-            int mois = Integer.parseInt(tmp[1]);
-            int jour = Integer.parseInt(tmp[2]);
+    /*  private Date str2Date(String input) {
+     String tmp[] = input.split("-");
+     if (tmp.length == 3) {
+     int annee = Integer.parseInt(tmp[0]);
+     int mois = Integer.parseInt(tmp[1]);
+     int jour = Integer.parseInt(tmp[2]);
 
 
-            return new Date(annee, mois, jour);
-        } else {
-            return null;
-        }
-    } */
+     return new Date(annee, mois, jour);
+     } else {
+     return null;
+     }
+     } */
 }

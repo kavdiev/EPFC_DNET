@@ -60,7 +60,7 @@ public class CtrlAppart extends genericCtrl {
                 if (!a.isProprio(getSessionUser(request))) {
                     vue = Consts.RENT_REQUEST_VUE;
                     SearchForm searcher = super.getSearchForm(request);
-                    model.addAttribute("rent", new LocationActive() );
+                    model.addAttribute("rent", new LocationActive(searcher.getWeekIn(),searcher.getWeekOut()) );
                 } else {
                     // proprio
                     vue = Consts.APPART_VUE;
@@ -105,17 +105,6 @@ public class CtrlAppart extends genericCtrl {
 
                             List<Appart> apparts = (List<Appart>) (List<?>) hAppart.selectUsersApparts(getSessionUser(request).getIdU());
                             model.addAttribute("apparts", apparts);
-                            break;
-                        }
-                        case "toapprove": {
-                            List<Appart> apparts = (List<Appart>) (List<?>) hAppart.selectUsersApparts(getSessionUser(request).getIdU());
-                            List<Appart> reservations = new ArrayList();
-                            for (Appart a : apparts) {
-                                /* if (a.getLocataire() != null) {
-                                 reservations.add(a);
-                                 }*/
-                            }
-                            model.addAttribute("apparts", reservations);
                             break;
                         }
                         case "showusersapparts": {

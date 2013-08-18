@@ -45,9 +45,11 @@ public class CtrlSearch extends genericCtrl {
         String vue = "index";
         // if (request.getParameter("appartAdded") != null) {
         if ((searcher != null) || (isLoged(request))) {
-            System.out.println("loged in");
+            System.out.println("loged in srch w-in="+searcher.getWeekIn()+" w-out"+searcher.getWeekOut());
+            
             List<Appart> apparts = null;
             searcher.resetLevel();
+            super.setSearchForm(searcher, request);
             String querry = searcher.buildQuerry(super.getSessionUser(request).getIdU());
             if (searcher.isStrict()) {
                 System.out.println("strict");
