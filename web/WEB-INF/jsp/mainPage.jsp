@@ -66,13 +66,21 @@
             <tr><td>Loyer MAx<form:input path="loyerMax" /> </td></tr>
             <tr><td>Post Code<form:input path="postCode" /> </td></tr>
             <tr>
-                <td>Semaine debut <form:input path="weekIn" /> - Semaine fin
-                    <form:input path="weekOut"  /></td>
-            </tr>        
-            <td>Strict: <form:checkbox path="strict" />  <input name="doSearch" value="Search" type="submit" ></td>
-        </tr>
+                <td>Semaine debut 
+                    <form:select path="weekIn">
+                        <form:options items="${searchForm.weeks}"/>
+                    </form:select>
 
-    </form:form>
+                    - Semaine fin 
+                  <form:select path="weekOut">
+                     <form:options items="${searchForm.weeks}"/>
+                  </form:select>
+                </td>
+</tr>        
+<td>Strict: <form:checkbox path="strict" />  <input name="doSearch" value="Search" type="submit" ></td>
+</tr>
+
+</form:form>
 </table>
 <table border="1" width="100%" height="100%" >
     <tr><td bgcolor="#C0C0C0" width="30px" height="26px"><img src="img/i_mesg.gif"></td>
@@ -103,7 +111,7 @@
     <% if (!u.isAnonymus()) {%>
     <a href="<%=Consts.NEW_APPART_URL%>">New Appart</a> <br>
     <a href="<%=Consts.LIST_APPART_URL%>?tool=myapparts">Mes Apparts</a> <br>
-    <a href="<%=Consts.LIST_APPART_URL%>?tool=toapprove">A confirmer </a> <br>
+    <a href="<%=Consts.TO_APPROVE_URL%>">Apparts a confirmer </a> <br>
     <% }%>
     <% if (u.isAdmin()) {%>
     <a href="<%=Consts.LIST_USERS_URL%>?tool=showall"> Show Users </a> <br>
