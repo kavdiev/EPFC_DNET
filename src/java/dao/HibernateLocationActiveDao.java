@@ -46,8 +46,12 @@ public class HibernateLocationActiveDao implements IGenericDao {
 
     public boolean isFree(LocationActive loc) {
         Criteria crit= hibernateTemplate.getSessionFactory().getCurrentSession().createCriteria(LocationActive.class);
-        Criterion week = Restrictions.between("weekIn", loc.getWeekIn(), loc.getWeekOut());
-        crit.add(week); //// remplace le tamplete habituelle
+        Criterion weekB = Restrictions.between("weekIn", loc.getWeekIn(), loc.getWeekOut()); // ehh à verifier  tout ca
+        Criterion weekE = Restrictions.between("weekOut", loc.getWeekIn(), loc.getWeekOut());
+        //http://docs.jboss.org/hibernate/envers/3.6/javadocs/org/hibernate/criterion/Restrictions.html
+        crit.add(weekB); //// remplace le tamplete habituelle
+        crit.add(weekE);
+        
         List<LocationActive> locations = hibernateTemplate.find(" from LocationActive where idA=" + loc.getAppart().getIdA()+" "); // ajouter semaine in et out.. + year
         if (locations.isEmpty()) {
             return true;
