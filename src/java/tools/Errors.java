@@ -34,6 +34,9 @@ public final class Errors {
             put("a04", "ce n'est pas votre appart");
 
             put("s01", "Resultat de recherche est vide");
+            
+            put("l01", "appartement n'est pas disponible");
+            put("l02", "Reservation sauvée");
         }
     };
     static String ok = "ok";

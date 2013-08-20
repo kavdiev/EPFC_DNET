@@ -54,3 +54,6 @@ public class AccueilControleur extends genericCtrl {
 // et aussi quand le proprio va sur "Mes apparts" il peux confimer l'appart
 //
 
+// hibernate => objects...  c'est assez perturbant... il fait le mapping vers les ID tout seul...
+// c'est tres perturbant. quand dans hql =>  .... where appart_IdA not (select Appart)
+// pour moi je compare un ID (int) à un object (Appart) plus precisement une liste d'objets...   tordu...

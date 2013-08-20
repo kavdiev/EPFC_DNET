@@ -7,7 +7,9 @@ package dao;
 import java.util.List;
 import model.LocationActive;
 import org.hibernate.Criteria;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
@@ -25,6 +27,9 @@ public class HibernateLocationActiveDao implements IGenericDao {
     }
     @Autowired
     private HibernateTemplate hibernateTemplate;
+    
+    @Autowired
+    private SessionFactory sessionFactory;
     
     @Autowired
     HibernateAppartDao hAppart;
@@ -45,14 +50,17 @@ public class HibernateLocationActiveDao implements IGenericDao {
     }
 
     public boolean isFree(LocationActive loc) {
-        Criteria crit= hibernateTemplate.getSessionFactory().getCurrentSession().createCriteria(LocationActive.class);
+        //Criteria crit= hibernateTemplate.getSessionFactory().getCurrentSession().createCriteria(LocationActive.class);
+        DetachedCriteria  crit = DetachedCriteria.forClass(LocationActive.class);
         Criterion weekB = Restrictions.between("weekIn", loc.getWeekIn(), loc.getWeekOut()); // ehh à verifier  tout ca
         Criterion weekE = Restrictions.between("weekOut", loc.getWeekIn(), loc.getWeekOut());
+        Criterion appart = Restrictions.eq("appart", loc.appart);
         //http://docs.jboss.org/hibernate/envers/3.6/javadocs/org/hibernate/criterion/Restrictions.html
-        crit.add(weekB); //// remplace le tamplete habituelle
+        crit.add(weekB);
         crit.add(weekE);
+        crit.add(appart);
         
-        List<LocationActive> locations = hibernateTemplate.find(" from LocationActive where idA=" + loc.getAppart().getIdA()+" "); // ajouter semaine in et out.. + year
+        List<LocationActive> locations =hibernateTemplate.findByCriteria(crit);      
         if (locations.isEmpty()) {
             return true;
         } else {
@@ -83,7 +91,7 @@ public class HibernateLocationActiveDao implements IGenericDao {
 
     public List<LocationActive> selectToAprove(int idU) {
         
-        return hibernateTemplate.find("from LocationActive  where approuved=0 AND appart_idA not in ( from Appart where proprio_idU="+idU+")");
+        return hibernateTemplate.find("from LocationActive  where approuved=0 AND appart_idA  in ( from Appart where proprio_idU="+idU+")");
     }
 
     @Override

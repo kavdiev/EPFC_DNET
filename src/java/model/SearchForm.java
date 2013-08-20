@@ -82,11 +82,11 @@ public class SearchForm {
         Calendar cal = Calendar.getInstance();
         if (this.weekIn == 0) {
             this.weekIn = cal.get(Calendar.WEEK_OF_YEAR);
-            System.out.println("out = "+weekIn);
+            System.out.println("out = " + weekIn);
         }
         if (this.weekOut == 0) {
             this.weekOut = cal.get(Calendar.WEEK_OF_YEAR) + 1;
-            System.out.println("out = "+weekOut);
+            System.out.println("out = " + weekOut);
         }
         weeks = new ArrayList<>();
         for (int i = 1; i < 53; i++) {
@@ -256,7 +256,7 @@ public class SearchForm {
         } else {
             out = "from Appart";
         }
-
+        // faut trouver à quel niveau on vire la date... ou c'est critaire persistant ?
         List<String> str = new ArrayList();
         if (level >= 5) {
             if (garage) {
@@ -289,8 +289,9 @@ public class SearchForm {
             if (loyerMax > 0) {
                 str.add("loyer<='" + loyerMax + "'");
             }
+             // ca a l'aire de marcheR..  vraiment il faut penser objet... c'est pas evident...
+            str.add(" idA not in ( select appart from LocationActive where weekIn<=" + this.weekOut + " AND weekOut>=" + this.weekIn + ")");
         }
-        // filtr where i'm not proprio
 
         // date search in location actives
         if (!str.isEmpty()) {
@@ -303,19 +304,18 @@ public class SearchForm {
     }
 
     private String parseQuerry(List<String> str) {
-        String out = " AND";
+        String out = " and";
         for (int i = 0; i < str.size(); i++) {
             out = out + " " + str.get(i);
             if (i != str.size() - 1) {
-                out = out + " AND ";
+                out = out + " and ";
             }
         }
 
         return out;
     }
     /*  private String buildDateQuerry() {
-     return "( select appart_idA from LocationActive where LocationActive.dateIn<='"+
-     this.dateOut+"' AND LocationActive.dateOut>='"+this.dateIn+"')";
+     return "( select appart_idA from LocationActive where LocationActive.dateIn<='"+this.dateOut+"' AND LocationActive.dateOut>='"+this.dateIn+"')";
      } */
 
     /*  private Date str2Date(String input) {

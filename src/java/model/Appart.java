@@ -31,8 +31,9 @@ public class Appart implements Serializable {
     @ManyToOne
     User proprio;
     @OneToMany(mappedBy = "appart", cascade = CascadeType.ALL)
-    private List<LocationActive> locations = new ArrayList<>();
-
+    public List<LocationActive> locations = new ArrayList<>();
+    
+    
     @Override
     public boolean equals(Object obj) {
         if (((Appart) obj).idA == this.idA) {
@@ -40,6 +41,13 @@ public class Appart implements Serializable {
         } else {
             return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + this.idA;
+        return hash;
     }
 
     public Appart() {

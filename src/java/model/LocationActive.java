@@ -24,7 +24,7 @@ public class LocationActive implements Serializable {
     @ManyToOne
     User locataire;
     @ManyToOne
-    Appart appart;
+    public Appart appart;
     int yearIn;
     int weekIn;
     int yearOut;

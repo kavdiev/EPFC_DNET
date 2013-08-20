@@ -74,8 +74,16 @@ public class CtrlRent extends genericCtrl {
                 rent.setLocataire(super.getSessionUser(request)); // il faut encore une verif sur appart ... ehhh ou le prendre de currentAppart
                 rent.setAppart((Appart) hAppart.selectOne(Integer.parseInt(sId)));
                 System.out.println(" id " + rent.getId() + " locataire " + rent.getLocataire().getNom() + " appart " + rent.getAppart().getIdA());
-                if (!hLoc.save(rent)) {
-                    model.addAttribute(Consts.MSG, Errors.getErrorMsg("2"));
+                if (!hLoc.isFree(rent)) {
+                    System.out.println("n'est pas libre");
+                    model.addAttribute(Consts.MSG, Errors.getErrorMsg("l01")); 
+                    // il faut un redirect vers RentRequest page ?
+                } else {
+                    if (hLoc.save(rent)) {
+                        model.addAttribute(Consts.MSG, Errors.getErrorMsg("l02"));
+                    } else {
+                        model.addAttribute(Consts.MSG, Errors.getErrorMsg("2"));
+                    }
                 }
                 model.addAttribute(Consts.SEARCH_FORM, getSearchForm(request));
             }
