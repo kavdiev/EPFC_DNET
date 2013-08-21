@@ -48,6 +48,7 @@ public class CtrlRent extends genericCtrl {
             Appart a = (Appart) hAppart.selectOne(Integer.parseInt(id));
             if (!a.isProprio(getSessionUser(request))) {
                 vue = Consts.RENT_REQUEST_VUE;
+                model.addAttribute("reservations",hLoc.getAllReservationFromNow(a.getIdA()));
             } else {
                 vue = Consts.APPART_VUE;
             }

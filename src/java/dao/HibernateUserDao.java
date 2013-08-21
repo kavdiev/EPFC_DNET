@@ -70,6 +70,10 @@ public class HibernateUserDao implements IGenericDao {
         return hibernateTemplate.find(" from User where admin=1");
     }
 
+    public List<Object> selectAllProprios() {
+        return hibernateTemplate.find(" from User where idU in (select proprio from Appart)");
+    }
+
     @Override
     public Object selectOne(long id) {
         User u = null;
@@ -123,6 +127,7 @@ public class HibernateUserDao implements IGenericDao {
         return DataAccessUtils.intResult(hibernateTemplate.find("select count(*) from User"));
     }
 //  cette maniere est plus efficace elle n'instancie pas d'objet user. (lazy possibilité d'utiliser le selectAdmins de plus haut et regarder la taille de la liste
+
     public int countAdmins() {
         return DataAccessUtils.intResult(hibernateTemplate.find("select count(*) from User where admin=1"));
     }

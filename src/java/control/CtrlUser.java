@@ -102,8 +102,8 @@ public class CtrlUser extends genericCtrl {
                         model.addAttribute("label", "Admins");
                         break;
                     case "showproprios":
-                        users = (List<User>) (List<?>) hUser.selectAllAdmins();
-                        model.addAttribute("label", "Proprios (marche pas encore)");
+                        users = (List<User>) (List<?>) hUser.selectAllProprios();
+                        model.addAttribute("label", "Proprios");
                         break;
                     default:
                         model.addAttribute(Consts.SEARCH_FORM,getSearchForm(request));

@@ -61,6 +61,7 @@ public class CtrlAppart extends genericCtrl {
                     vue = Consts.RENT_REQUEST_VUE;
                     SearchForm searcher = super.getSearchForm(request);
                     model.addAttribute("rent", new LocationActive(searcher.getWeekIn(),searcher.getWeekOut()) );
+                    model.addAttribute("reservations",hLoc.getAllReservationFromNow(a.getIdA()));
                 } else {
                     // proprio
                     vue = Consts.APPART_VUE;

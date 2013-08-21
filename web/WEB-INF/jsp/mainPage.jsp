@@ -24,9 +24,13 @@
         </style>
     </head>
     <body>
-        <h1  align="center" >Main Page</h1>
+        
+        <div align="center"> 
+            <%@include file="/WEB-INF/jspf/header.jspf" %>
+        </div>
         <%-- Welcome to ${sessionScope.cuser.getNom()}--%>
-        <table width="1200" height="100%" border="1"  align="center" >
+        <table width="100%" height="100%" border="1"  align="center" >
+            <tr> <td colspan="3" bgcolor="#00FFFF" align="center"> <b>Main page </b></td></tr>
             <tr>
                 <td bgcolor="#00FFFF" >User</td>
                 <td bgcolor="#00FFFF" >Search</td>
@@ -72,15 +76,15 @@
                     </form:select>
 
                     - Semaine fin 
-                  <form:select path="weekOut">
-                     <form:options items="${searchForm.weeks}"/>
-                  </form:select>
+                    <form:select path="weekOut">
+                        <form:options items="${searchForm.weeks}"/>
+                    </form:select>
                 </td>
-</tr>        
-<td>Strict: <form:checkbox path="strict" />  <input name="doSearch" value="Search" type="submit" ></td>
-</tr>
+            </tr>        
+            <td>Strict: <form:checkbox path="strict" />  <input name="doSearch" value="Search" type="submit" ></td>
+        </tr>
 
-</form:form>
+    </form:form>
 </table>
 <table border="1" width="100%" height="100%" >
     <tr><td bgcolor="#C0C0C0" width="30px" height="26px"><img src="img/i_mesg.gif"></td>

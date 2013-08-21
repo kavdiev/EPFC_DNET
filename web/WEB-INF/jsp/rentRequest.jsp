@@ -66,5 +66,16 @@
                 </tr>
             </table> 
         </form:form>
+        <table  width="700" height="100%" border="1"  align="center">
+            <tr>
+                <th colspan="2">Reservations foutures </th>
+            </tr>
+            <c:forEach items="${reservations}" var="reservation">
+                <tr> 
+                    <td>debut: ${reservation.weekIn}</td>
+                    <td>fin: ${reservation.weekOut}</td>
+                </tr>
+            </c:forEach>
+        </table>
     </body>
 </html>

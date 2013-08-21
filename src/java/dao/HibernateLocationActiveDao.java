@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.util.Calendar;
 import java.util.List;
 import model.LocationActive;
 import org.hibernate.Criteria;
@@ -27,10 +28,8 @@ public class HibernateLocationActiveDao implements IGenericDao {
     }
     @Autowired
     private HibernateTemplate hibernateTemplate;
-    
     @Autowired
     private SessionFactory sessionFactory;
-    
     @Autowired
     HibernateAppartDao hAppart;
 
@@ -50,8 +49,9 @@ public class HibernateLocationActiveDao implements IGenericDao {
     }
 
     public boolean isFree(LocationActive loc) {
+        //faut verifier si lce type de recherche convient bien 
         //Criteria crit= hibernateTemplate.getSessionFactory().getCurrentSession().createCriteria(LocationActive.class);
-        DetachedCriteria  crit = DetachedCriteria.forClass(LocationActive.class);
+        DetachedCriteria crit = DetachedCriteria.forClass(LocationActive.class);
         Criterion weekB = Restrictions.between("weekIn", loc.getWeekIn(), loc.getWeekOut()); // ehh à verifier  tout ca
         Criterion weekE = Restrictions.between("weekOut", loc.getWeekIn(), loc.getWeekOut());
         Criterion appart = Restrictions.eq("appart", loc.appart);
@@ -59,8 +59,8 @@ public class HibernateLocationActiveDao implements IGenericDao {
         crit.add(weekB);
         crit.add(weekE);
         crit.add(appart);
-        
-        List<LocationActive> locations =hibernateTemplate.findByCriteria(crit);      
+
+        List<LocationActive> locations = hibernateTemplate.findByCriteria(crit);
         if (locations.isEmpty()) {
             return true;
         } else {
@@ -90,9 +90,13 @@ public class HibernateLocationActiveDao implements IGenericDao {
     }
 
     public List<LocationActive> selectToAprove(int idU) {
-        
-        return hibernateTemplate.find("from LocationActive  where approuved=0 AND appart_idA  in ( from Appart where proprio_idU="+idU+")");
+        return hibernateTemplate.find("from LocationActive  where approuved=0 AND appart_idA  in ( from Appart where proprio_idU=" + idU + ")");
     }
+
+    public List<LocationActive> getAllReservationFromNow(int idA) {
+        Calendar cal = Calendar.getInstance();
+        return hibernateTemplate.find("from LocationActive  where appart_idA =" + idA + " and weekIn>=" + cal.get(Calendar.WEEK_OF_YEAR) + " order by weekIn");
+    } 
 
     @Override
     public Object selectOne(long id) {

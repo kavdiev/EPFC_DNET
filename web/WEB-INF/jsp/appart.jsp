@@ -22,6 +22,9 @@
         <title>Appart : ${model.appart.idA} </title>
     </head>
     <body>
+        <div align="center"> 
+            <%@include file="/WEB-INF/jspf/header.jspf" %>
+        </div>
         <table width="700" height="100%" border="1"  align="center"> 
             <tr>
                 <td colspan="5" bgcolor="#00FFFF" > <h1 align="center" >Fiche Appartement</h1></td>
