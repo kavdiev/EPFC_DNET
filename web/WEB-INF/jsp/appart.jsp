@@ -6,14 +6,12 @@
 <%@page import="model.Appart"%>
 <%@page import="tools.Consts"%>
 <%@page import="model.User"%>
-<%@page import="tools.HTMLTool"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <%HTMLTool tool = new HTMLTool();%>
         <% User u = (User) request.getSession().getAttribute(Consts.CURRENT_USER);%>
         <% Appart a = (Appart) request.getAttribute("appart");%>
 

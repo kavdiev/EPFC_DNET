@@ -5,7 +5,6 @@
 --%>
 <%@page import="tools.Consts"%>
 <%@page import="model.User"%>
-<%@page import="tools.HTMLTool"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,8 +13,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Main Page</title>
-
-        <%HTMLTool tool = new HTMLTool();%>
         <% User u = (User) request.getSession().getAttribute(Consts.CURRENT_USER);%>
         <style type="text/css">
             body p {

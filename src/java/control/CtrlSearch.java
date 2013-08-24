@@ -50,15 +50,15 @@ public class CtrlSearch extends genericCtrl {
             List<Appart> apparts = null;
             searcher.resetLevel();
             super.setSearchForm(searcher, request);
-            String querry = searcher.buildQuerry(super.getSessionUser(request).getIdU());
+           // String querry = searcher.buildQuerry(super.getSessionUser(request).getIdU());
             if (searcher.isStrict()) {
                 System.out.println("strict");
-                apparts = hAppart.customSearch(querry);
+                apparts = hAppart.customSearch(searcher,super.getSessionUser(request));
 
             } else {
                 System.out.println("no strict");
                 while (searcher.getLevel() >= 0) {
-                    apparts = hAppart.customSearch(querry);
+                    apparts = hAppart.customSearch(searcher,super.getSessionUser(request));
                     if (apparts != null && !apparts.isEmpty()) {
                         break;
                     }

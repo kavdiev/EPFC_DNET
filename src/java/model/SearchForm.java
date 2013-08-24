@@ -249,12 +249,10 @@ public class SearchForm {
     }
 
     public String buildQuerry(int idU) {
-        String out = "";
+        String out = "from Appart where ";
         //les apparts où je ne suis pas proprio
         if (idU != 0) {
-            out = "from Appart where proprio_idU !=" + idU + " ";
-        } else {
-            out = "from Appart";
+            out = out + " proprio_idU !=" + idU + " ";
         }
         // faut trouver à quel niveau on vire la date... ou c'est critaire persistant ?
         List<String> str = new ArrayList();
