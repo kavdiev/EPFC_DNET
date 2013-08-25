@@ -31,7 +31,7 @@
             <tr>
                 <td bgcolor="#00FFFF" >User</td>
                 <td bgcolor="#00FFFF" >Search</td>
-                <td bgcolor="#00FFFF" >Menu</td>
+                <td  bgcolor="#00FFFF" >Menu</td>
             </tr>
             <tr>
                 <td valign="top">
@@ -108,7 +108,7 @@
 </table>
 </td>
 <%-- il faut un if users is anonymus Menu pour se loguer ou alors menu classique --%>
-<td valign="top">
+<td valign="top" >
     <% if (!u.isAnonymus()) {%>
     <a href="<%=Consts.NEW_APPART_URL%>">New Appart</a> <br>
     <a href="<%=Consts.LIST_APPART_URL%>?tool=myapparts">Mes Apparts</a> <br>

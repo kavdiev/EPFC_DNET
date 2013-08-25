@@ -9,9 +9,10 @@ import model.Appart;
 import model.LocationActive;
 import model.SearchForm;
 import model.User;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.Subqueries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -116,16 +117,13 @@ public class HibernateAppartDao implements IGenericDao {
         if (u.getIdU() !=0){
          crit.add(Restrictions.ne("proprio",u));
         }
-        // Period est utilisé toujour.
-        
-        
-
-
-        //Criterion weekB = Restrictions.between("weekIn", loc.getWeekIn(), loc.getWeekOut()); // ehh à verifier  tout ca
-        //Criterion weekE = Restrictions.between("weekOut", loc.getWeekIn(), loc.getWeekOut());
-        // Criterion appart = Restrictions.eq("appart", loc.appart);
-        //http://docs.jboss.org/hibernate/envers/3.6/javadocs/org/hibernate/criterion/Restrictions.html
-
+         DetachedCriteria critRent = DetachedCriteria.forClass(LocationActive.class);
+         critRent.add(Restrictions.between("weekIn", searcher.getWeekIn(), searcher.getWeekOut()));
+         critRent.add(Restrictions.between("weekOut", searcher.getWeekIn(), searcher.getWeekOut()));
+         // ajouter year in/out
+         critRent.setProjection(Projections.property("appart"));
+         crit.add(Subqueries.propertyNotIn("locations", critRent));
+        // Period est utilisé toujours. un peu compliqué tout ca avec criteria, ca marche mais pas trop sur comment...
 
         return hibernateTemplate.findByCriteria(crit);
     }

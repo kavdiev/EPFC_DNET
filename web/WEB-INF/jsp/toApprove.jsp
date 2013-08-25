@@ -15,18 +15,24 @@
         <title>Apparts à confirmer</title>
     </head>
     <body>
+        <div align="center"> 
+            <%@include file="/WEB-INF/jspf/header.jspf" %>
+        </div>
         <h1 align="center" >Apparts à  confirmer </h1>     
         <table width="700" height="100%" border="1"  align="center" >
-            <tr><td  bgcolor="#3090C7">Id (juste pour info)</>
+            <tr>
                 <td  bgcolor="#3090C7">appart Id</>
-                <td bgcolor="#3090C7">User Id</td>
+                <td colspan="2" bgcolor="#3090C7">Periode de reservation</>
+                <td bgcolor="#3090C7">User</td>
                 <td bgcolor="#3090C7">Action</td>
             </tr>
             <c:forEach items="${model.rents}" var="location">
                 <tr> 
-                    <td>${location.id}</td>
+                <!--    <td>${location.id}</td> -->
                     <td><a href="appart.htm?id=${location.getAppart().idA}">${location.getAppart().idA}</a> </td>
-                    <td>${location.getLocataire().idU}</td>
+                    <td>Semaine de debut: ${location.weekIn} </td>
+                    <td> Semaine de fin: ${location.weekOut} </td>
+                    <td>${location.getLocataire().nom}</td>
                     <td>Buttons ok/not</td>
                 </tr>
                 <tr><td colspan="5" bgcolor="#DEDEDE"> </td></tr>

@@ -12,7 +12,11 @@
         <title>Log In</title>
     </head>
     <body>
-        <h1>Log in</h1>
+        <table align="center" width="100%" height="100%" border="1">
+            <tr>
+                <td colspan="2" align="center" bgcolor="#00FFFF"> <h2>Log in </h2></td> 
+            </tr>
+            <tr><td colspan="2">
         <form name="login" method="POST">
             <fieldset>
                 <label>Identifiant :</label>
@@ -24,13 +28,15 @@
                 <input name="login" value="Valider" type="submit"/>
             </fieldset>
         </form>
-        <br>
-        <table border="1">
-            <tr><td>
-                    ${model.msg}
-                </td> </tr>
-            <tr> <td> <a href="user.htm?tool=newUser"> Inscription</a> </td></tr>
+        </td> 
+            </tr>
+            <tr>
+                <td bgcolor="#C0C0C0" width="30px" height="26px"><img src="img/i_mesg.gif"></td>
+                <td align="left" bgcolor="#C0C0C0" colspan="4"  height="26px"> Message: ${model.msg} </td>
+           </tr>
+           <tr> 
+               <td colspan="2" > <a href="user.htm?tool=newUser"> Inscription</a> </td>
+           </tr>
         </table>
-
     </body>
 </html>

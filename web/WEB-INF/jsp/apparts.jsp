@@ -21,6 +21,9 @@
         <% }%>
     </head>
     <body>
+         <div align="center"> 
+            <%@include file="/WEB-INF/jspf/header.jspf" %>
+        </div>
         <h1 align="center">
             <% if (request.getAttribute(Consts.LABEL) == null) {%>
             <%=u.getNom()%>'s Apparsts

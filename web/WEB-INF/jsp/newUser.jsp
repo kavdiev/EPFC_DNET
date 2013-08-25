@@ -13,28 +13,33 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>New User</title>
     </head>
-    <body>
-        <h1>New User Creation page</h1>
-        <form:form method="POST" action="user.htm" commandName="user">
-            <table>
-                <tr>
-                    <th>Nom</th>
-                    <th>Password</th>
-                     <th>PostCode</th>
-                </tr>
-                <tr>
-                    <td><form:input path="nom" /> </td>
-                    <td><form:input path="password" /> </td>
-                    <td><form:input path="postCode" /> </td>
-                    <td><input name="Creer" value="Créer" type="submit" ></td>
-                <input name="userAdded" value="userAdded" type="hidden">
-                </tr>
-            </table> 
-        </form:form>
-        <table border="1">
-            <tr><td>
-                   ${model.msg}
-                </td> </tr>
+    <body><table align="center" width="100%" height="100%" border="1">
+            <tr>
+                <td colspan="2" align="center" bgcolor="#00FFFF"> <h2>New User Creation page </h2></td> 
+            </tr>
+            <tr><td colspan="2">
+                    <form:form method="POST" action="user.htm" commandName="user">
+                        <table> 
+                            <tr>
+                                <th>Nom</th>
+                                <th>Password</th>
+                                <th>PostCode</th>
+                            </tr>
+                            <tr>
+                                <td><form:input path="nom" /> </td>
+                                <td><form:input path="password" /> </td>
+                                <td><form:input path="postCode" /> </td>
+                                <td><input name="Creer" value="Créer" type="submit" ></td>
+                            <input name="userAdded" value="userAdded" type="hidden">
+                            </tr>
+                        </table> 
+                    </form:form> 
+                </td> 
+            </tr>
+            <tr>
+                <td bgcolor="#C0C0C0" width="30px" height="26px"><img src="img/i_mesg.gif"></td>
+                <td align="left" bgcolor="#C0C0C0" colspan="4"  height="26px"> Message: ${model.msg} </td>
+           </tr>
         </table>
     </body>
 </html>
