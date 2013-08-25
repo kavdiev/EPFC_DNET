@@ -33,10 +33,14 @@
                     <td>Semaine de debut: ${location.weekIn} </td>
                     <td> Semaine de fin: ${location.weekOut} </td>
                     <td>${location.getLocataire().nom}</td>
-                    <td>Buttons ok/not</td>
+                    <td><a href="toApprove.htm?tool=approuve&id=${location.id}">Approuver</a> - <a href="toApprove.htm?tool=refuser&id=${location.id}"> refuser</a></td>
                 </tr>
                 <tr><td colspan="5" bgcolor="#DEDEDE"> </td></tr>
             </c:forEach>
+           <tr>
+                <td bgcolor="#C0C0C0" width="30px" height="26px"><img src="img/i_mesg.gif"></td>
+                <td align="left" bgcolor="#C0C0C0" colspan="4"  height="26px"> Message: ${model.msg} </td>
+           </tr>
         </table>
     </body>
 </html>

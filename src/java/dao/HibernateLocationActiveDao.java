@@ -96,8 +96,17 @@ public class HibernateLocationActiveDao implements IGenericDao {
     public List<LocationActive> getAllReservationFromNow(int idA) {
         Calendar cal = Calendar.getInstance();
         return hibernateTemplate.find("from LocationActive  where appart_idA =" + idA + " and weekIn>=" + cal.get(Calendar.WEEK_OF_YEAR) + " order by weekIn");
-    } 
+    }
 
+    public boolean aproveOne(int idL) {
+        LocationActive loc = (LocationActive) this.selectOne(idL);
+        if (loc != null) {
+            loc.setApprouved(true);
+            return this.save(loc);
+        } else {
+            return false;
+        }
+    }
     @Override
     public Object selectOne(long id) {
         LocationActive loc = null;

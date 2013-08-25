@@ -37,6 +37,8 @@ public final class Errors {
             
             put("l01", "appartement n'est pas disponible");
             put("l02", "Reservation sauvée");
+            put("l03", "Reservation aceptée");
+            put("l04", "Reservation refusée");
         }
     };
     static String ok = "ok";
