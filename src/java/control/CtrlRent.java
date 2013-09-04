@@ -7,6 +7,7 @@ package control;
 import dao.HibernateAppartDao;
 import dao.HibernateLocationActiveDao;
 import dao.HibernateUserDao;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import model.Appart;
 import model.LocationActive;
@@ -96,45 +97,53 @@ public class CtrlRent extends genericCtrl {
             @RequestParam(required = false, value = "tool") String tool,
             @RequestParam(required = false, value = "id") String sId,
             ModelMap model) {
-        System.out.println("in approve");
+        System.out.println("in approve  tool = " + tool);
         String vue = Consts.INDEX_VUE;
 
-        if (isLoged(request)) {
-            if (tool.equals("reservations")) {
+        if (isLoged(request) && tool != null) {
 
-                model.addAttribute(Consts.PENDING, hLoc.getAllMyReservations(getSessionUser(request).getIdU(), Consts.PENDING_STATUS));
-                model.addAttribute(Consts.RESERVED, hLoc.getAllMyReservations(getSessionUser(request).getIdU(), Consts.RESERVED_STATUS));
-                model.addAttribute(Consts.REFUSED, hLoc.getAllMyReservations(getSessionUser(request).getIdU(), Consts.REFUSED_STATUS));
-                model.addAttribute("label", "Mes reservations");
-            } else {
-                if (sId != null) {
-                    switch (tool) {
-                        case "approuve":
-                            if (hLoc.aproveOne(Integer.parseInt(sId))) {
-                                model.addAttribute(Consts.MSG, Errors.getErrorMsg("l03"));
-                            } else {
-                                model.addAttribute(Consts.MSG, Errors.getErrorMsg("2"));
-                            }
-                            break;
-                        case "refuser":
-                            if (hLoc.delete(Integer.parseInt(sId))) {
-                                model.addAttribute(Consts.MSG, Errors.getErrorMsg("l04"));
-                            } else {
-                                model.addAttribute(Consts.MSG, Errors.getErrorMsg("2"));
-                            }
-                            break;
+            switch (tool) {
+                case "approuve":
+                    if ((sId != null) || hLoc.aproveOne(Integer.parseInt(sId))) {
+                        model.addAttribute(Consts.MSG, Errors.getErrorMsg("l03"));
+                    } else {
+                        model.addAttribute(Consts.MSG, Errors.getErrorMsg("2"));
                     }
-                }
-                model.addAttribute("label", "Reservations à confirmer ");
-                model.addAttribute(Consts.RESERVATIONS, hLoc.selectToAprove(getSessionUser(request).getIdU()));
+                    model.addAttribute("label", "Reservations à confirmer ");
+                    model.addAttribute(Consts.RESERVATIONS, hLoc.selectToAprove(getSessionUser(request).getIdU()));
+                    break;
+                case "refuser":
+                    if ((sId != null) || hLoc.delete(Integer.parseInt(sId))) {
+                        model.addAttribute(Consts.MSG, Errors.getErrorMsg("l04"));
+                    } else {
+                        model.addAttribute(Consts.MSG, Errors.getErrorMsg("2"));
+                    }
+                    model.addAttribute("label", "Reservations à confirmer ");
+                    model.addAttribute(Consts.RESERVATIONS, hLoc.selectToAprove(getSessionUser(request).getIdU()));
+                    break;
+                case "reservations":
+
+
+                    model.addAttribute(Consts.PENDING, hLoc.getAllMyReservations(getSessionUser(request).getIdU(), Consts.PENDING_STATUS));
+                    model.addAttribute(Consts.RESERVED, hLoc.getAllMyReservations(getSessionUser(request).getIdU(), Consts.RESERVED_STATUS));
+                    model.addAttribute(Consts.REFUSED, hLoc.getAllMyReservations(getSessionUser(request).getIdU(), Consts.REFUSED_STATUS));
+                    model.addAttribute("label", "Mes reservations");
+                    break;
+                case "toaprove":
+
+                    model.addAttribute("label", "Reservations à confirmer ");
+                    model.addAttribute(Consts.RESERVATIONS, hLoc.selectToAprove(getSessionUser(request).getIdU()));
+                    break;
             }
             vue = Consts.TO_APPROVE_VUE;
+
         } else {
             model.addAttribute(Consts.SEARCH_FORM, getSearchForm(request));
         }
+
         return new ModelAndView(vue, Consts.MODEL, model);
     }
-    // ---------- post methode   (submite )
+// ---------- post methode   (submite )
  /*   @RequestMapping(value = "/toApprove.htm", method = RequestMethod.POST)
      public ModelAndView submitApprove(HttpServletRequest request,
      ModelMap model,

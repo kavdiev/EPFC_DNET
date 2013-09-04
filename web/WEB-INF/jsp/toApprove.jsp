@@ -18,10 +18,10 @@
         <div align="center"> 
             <%@include file="/WEB-INF/jspf/header.jspf" %>
         </div>
-        <h1 align="center" >Apparts à  confirmer </h1>     
+        <h1 align="center" >${model.label} </h1>     
         <table width="700" height="100%" border="1"  align="center">
             <c:choose>
-                <c:if test="${empty model.rents}">
+                <c:when test="${not empty model.rents}">
                     <tr>
                         <td  bgcolor="#3090C7">appart Id</>
                         <td colspan="2" bgcolor="#3090C7">Periode de reservation</>
@@ -67,7 +67,7 @@
                         </tr>
                         <tr><td colspan="5" bgcolor="#DEDEDE"> </td></tr>
                     </c:forEach>
-                </c:if>
+                </c:when>
                 <c:otherwise>
                     <tr>
                         <td  bgcolor="#3090C7">appart Id</>

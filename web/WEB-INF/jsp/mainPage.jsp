@@ -112,7 +112,7 @@
     <% if (!u.isAnonymus()) {%>
     <a href="<%=Consts.NEW_APPART_URL%>">New Appart</a> <br>
     <a href="<%=Consts.LIST_APPART_URL%>?tool=myapparts">Mes Apparts</a> <br>
-    <a href="<%=Consts.TO_APPROVE_URL%>">Apparts a confirmer </a> <br>
+    <a href="<%=Consts.TO_APPROVE_URL%>?tool=toaprove">Apparts a confirmer </a> <br>
     <a href="<%=Consts.TO_APPROVE_URL%>?tool=reservations">Mes reservations </a> <br>
     <% }%>
     <% if (u.isAdmin()) {%>

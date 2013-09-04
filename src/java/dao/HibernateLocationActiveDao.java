@@ -101,7 +101,7 @@ public class HibernateLocationActiveDao implements IGenericDao {
         return hibernateTemplate.find("from LocationActive  where locataire_idU =" + idU);
     }
     public List<LocationActive> getAllMyReservations(int idU, int status) {
-        return hibernateTemplate.find("from LocationActive where status="+status+" locataire_idU =" + idU);
+        return hibernateTemplate.find("from LocationActive where status="+status+" and locataire_idU =" + idU);
     }
 
     public boolean aproveOne(int idL) {
