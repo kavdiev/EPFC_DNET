@@ -7,7 +7,6 @@ package control;
 import dao.HibernateAppartDao;
 import dao.HibernateLocationActiveDao;
 import dao.HibernateUserDao;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import model.Appart;
 import model.LocationActive;
@@ -40,7 +39,7 @@ public class CtrlRent extends genericCtrl {
     public ModelAndView getForm(HttpServletRequest request,
             @RequestParam(required = false, value = "id") String id,
             ModelMap model) {
-        System.out.println("in get rent");
+        //System.out.println("in get rent");
         String vue = "index";
         if ((isLoged(request)) && (id != null)) {
             Appart a = (Appart) hAppart.selectOne(Integer.parseInt(id));
@@ -60,21 +59,21 @@ public class CtrlRent extends genericCtrl {
     public ModelAndView submitForm(HttpServletRequest request,
             ModelMap model,
             @ModelAttribute("rent") LocationActive rent) {
-        System.out.println("in post");
+       // System.out.println("in post");
         String vue = Consts.INDEX_VUE;
 
         String action = request.getParameter("requestRent");
-        System.out.println("action=" + action);
+       // System.out.println("action=" + action);
         if (isLoged(request)) {
             if (action != null && rent != null) {
                 vue = Consts.MAIN_PAGE_VUE;
                 String sId = request.getParameter("idR"); // id de l'appart en question
-                System.out.println("sid=" + sId);
+         //       System.out.println("sid=" + sId);
                 rent.setLocataire(super.getSessionUser(request)); // il faut encore une verif sur appart ... ehhh ou le prendre de currentAppart
                 rent.setAppart((Appart) hAppart.selectOne(Integer.parseInt(sId)));
-                System.out.println(" id " + rent.getId() + " locataire " + rent.getLocataire().getNom() + " appart " + rent.getAppart().getIdA());
+           //     System.out.println(" id " + rent.getId() + " locataire " + rent.getLocataire().getNom() + " appart " + rent.getAppart().getIdA());
                 if (!hLoc.isFree(rent)) {
-                    System.out.println("n'est pas libre");
+             //       System.out.println("n'est pas libre");
                     model.addAttribute(Consts.MSG, Errors.getErrorMsg("l01"));
                     // il faut un redirect vers RentRequest page ?
                 } else {
@@ -97,7 +96,7 @@ public class CtrlRent extends genericCtrl {
             @RequestParam(required = false, value = "tool") String tool,
             @RequestParam(required = false, value = "id") String sId,
             ModelMap model) {
-        System.out.println("in approve  tool = " + tool);
+      //  System.out.println("in approve  tool = " + tool);
         String vue = Consts.INDEX_VUE;
 
         if (isLoged(request) && tool != null) {
@@ -144,19 +143,36 @@ public class CtrlRent extends genericCtrl {
         return new ModelAndView(vue, Consts.MODEL, model);
     }
 // ---------- post methode   (submite )
- /*   @RequestMapping(value = "/toApprove.htm", method = RequestMethod.POST)
-     public ModelAndView submitApprove(HttpServletRequest request,
-     ModelMap model,
-     @ModelAttribute("rent") LocationActive rent) {
-     System.out.println("in post");
-     String vue = Consts.INDEX_VUE;
 
-     String action = request.getParameter("requestRent");
-     if (isLoged(request)) {
-
-     } else {
-     model.addAttribute(Consts.MSG, Errors.getErrorMsg("1"));
-     }
-     return new ModelAndView(vue, Consts.MODEL, model);
-     } */
+    @RequestMapping(value = "/toApprove.htm", method = RequestMethod.POST)
+    public ModelAndView submitApprove(HttpServletRequest request,
+            ModelMap model,
+            @ModelAttribute("rent") LocationActive rent) {
+        String comment, locId;
+      //  System.out.println("in post rent manage");
+        String vue = Consts.INDEX_VUE;
+        LocationActive loc;
+        locId = request.getParameter("id");
+        loc = (LocationActive) hLoc.selectOne(Integer.parseInt(locId));
+        
+        if (isLoged(request) && loc != null) {
+            comment = request.getParameter("comment");
+            loc.setMessage(comment);
+            if (request.getParameter("aprover") != null) {
+                loc.setReserved();
+                 model.addAttribute(Consts.MSG, Errors.getErrorMsg("l03"));
+            } else if (request.getParameter("refuser") != null) {
+                loc.setRefused();
+                 model.addAttribute(Consts.MSG, Errors.getErrorMsg("l04"));
+            }
+            if (!hLoc.save(loc)) {
+            model.addAttribute(Consts.MSG, Errors.getErrorMsg("2"));
+            }
+            vue = Consts.MAIN_PAGE_VUE;
+        } else {
+            model.addAttribute(Consts.MSG, Errors.getErrorMsg("1"));
+        }
+        model.addAttribute(Consts.SEARCH_FORM, getSearchForm(request));
+        return new ModelAndView(vue, Consts.MODEL, model);
+    }
 }

@@ -19,13 +19,12 @@
             <%@include file="/WEB-INF/jspf/header.jspf" %>
         </div>
         <h1 align="center" >${model.label} </h1>     
-        <table width="700" height="100%" border="1"  align="center">
+        <table width="900" height="100%" border="1"  align="center">
             <c:choose>
-                <c:when test="${not empty model.rents}">
+                <c:when test="${empty model.rents}">
                     <tr>
                         <td  bgcolor="#3090C7">appart Id</>
                         <td colspan="2" bgcolor="#3090C7">Periode de reservation</>
-                        <td bgcolor="#3090C7">Status</td>
                         <td bgcolor="#3090C7">Message</td>
                     </tr>
                     <tr>
@@ -36,8 +35,7 @@
                             <td><a href="appart.htm?id=${location.getAppart().idA}">${location.getAppart().idA}</a> </td>
                             <td>Semaine de debut: ${location.weekIn} </td>
                             <td> Semaine de fin: ${location.weekOut} </td>
-                            <td>${location.getLocataire().nom}</td>
-                            <td><a href="toApprove.htm?tool=approuve&id=${location.id}">Approuver</a> - <a href="toApprove.htm?tool=refuser&id=${location.id}"> refuser</a></td>
+                            <td>${location.message} </td>
                         </tr>
                         <tr><td colspan="5" bgcolor="#DEDEDE"> </td></tr>
                     </c:forEach>
@@ -49,8 +47,7 @@
                             <td><a href="appart.htm?id=${location.getAppart().idA}">${location.getAppart().idA}</a> </td>
                             <td>Semaine de debut: ${location.weekIn} </td>
                             <td> Semaine de fin: ${location.weekOut} </td>
-                            <td>${location.getLocataire().nom}</td>
-                            <td><a href="toApprove.htm?tool=approuve&id=${location.id}">Approuver</a> - <a href="toApprove.htm?tool=refuser&id=${location.id}"> refuser</a></td>
+                            <td>${location.message} </td>
                         </tr>
                         <tr><td colspan="5" bgcolor="#DEDEDE"> </td></tr>
                     </c:forEach>
@@ -62,8 +59,7 @@
                             <td><a href="appart.htm?id=${location.getAppart().idA}">${location.getAppart().idA}</a> </td>
                             <td>Semaine de debut: ${location.weekIn} </td>
                             <td> Semaine de fin: ${location.weekOut} </td>
-                            <td>${location.getLocataire().nom}</td>
-                            <td><a href="toApprove.htm?tool=approuve&id=${location.id}">Approuver</a> - <a href="toApprove.htm?tool=refuser&id=${location.id}"> refuser</a></td>
+                            <td>${location.message} </td>
                         </tr>
                         <tr><td colspan="5" bgcolor="#DEDEDE"> </td></tr>
                     </c:forEach>
@@ -82,7 +78,18 @@
                             <td>Semaine de debut: ${location.weekIn} </td>
                             <td> Semaine de fin: ${location.weekOut} </td>
                             <td>${location.getLocataire().nom}</td>
-                            <td><a href="toApprove.htm?tool=approuve&id=${location.id}">Approuver</a> - <a href="toApprove.htm?tool=refuser&id=${location.id}"> refuser</a></td>
+                            <!--<td><a href="toApprove.htm?tool=approuve&id=${location.id}">Approuver</a> - <a href="toApprove.htm?tool=refuser&id=${location.id}"> refuser</a></td>-->
+                            <td>
+                                <form name="aprove" method="POST">
+                                    <fieldset>
+                                        <label>Message :</label>
+                                        <input type="text"  size="80"name="comment"/>
+                                         <input name="id" value="${location.id}"  type="hidden">
+                                        <input name="aprover" value="Approuver" type="submit"/>
+                                        <input name="refuser" value="Refuser" type="submit"/>
+                                    </fieldset>
+                                </form>
+                            </td>
                         </tr>
                         <tr><td colspan="5" bgcolor="#DEDEDE"> </td></tr>
                     </c:forEach>
