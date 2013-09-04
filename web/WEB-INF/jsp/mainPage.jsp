@@ -113,8 +113,10 @@
     <a href="<%=Consts.NEW_APPART_URL%>">New Appart</a> <br>
     <a href="<%=Consts.LIST_APPART_URL%>?tool=myapparts">Mes Apparts</a> <br>
     <a href="<%=Consts.TO_APPROVE_URL%>">Apparts a confirmer </a> <br>
+    <a href="<%=Consts.TO_APPROVE_URL%>?tool=reservations">Mes reservations </a> <br>
     <% }%>
     <% if (u.isAdmin()) {%>
+    <hr> Admin Tools <hr>
     <a href="<%=Consts.LIST_USERS_URL%>?tool=showall"> Show Users </a> <br>
     <a href="<%=Consts.LIST_USERS_URL%>?tool=showadmins">Show Admins </a> <br>
     <a href="<%=Consts.LIST_USERS_URL%>?tool=showproprios">Show Proprios </a> <br>

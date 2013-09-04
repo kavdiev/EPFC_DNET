@@ -90,7 +90,7 @@ public class HibernateLocationActiveDao implements IGenericDao {
     }
 
     public List<LocationActive> selectToAprove(int idU) {
-        return hibernateTemplate.find("from LocationActive  where approuved=0 AND appart_idA  in ( from Appart where proprio_idU=" + idU + ")");
+        return hibernateTemplate.find("from LocationActive  where status=0 AND appart_idA  in ( from Appart where proprio_idU=" + idU + ")");
     }
 
     public List<LocationActive> getAllReservationFromNow(int idA) {
@@ -100,16 +100,19 @@ public class HibernateLocationActiveDao implements IGenericDao {
     public List<LocationActive> getAllMyReservations(int idU) {
         return hibernateTemplate.find("from LocationActive  where locataire_idU =" + idU);
     }
+    public List<LocationActive> getAllMyReservations(int idU, int status) {
+        return hibernateTemplate.find("from LocationActive where status="+status+" locataire_idU =" + idU);
+    }
 
     public boolean aproveOne(int idL) {
         LocationActive loc = (LocationActive) this.selectOne(idL);
         if (loc != null) {
-            loc.setApprouved(true);
+            loc.setReserved();
             return this.save(loc);
         } else {
             return false;
         }
-    }
+    } 
     @Override
     public Object selectOne(long id) {
         LocationActive loc = null;

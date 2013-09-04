@@ -47,4 +47,13 @@ public final class Consts {
     public static final String RESERVATION = "rent";
     public static final String RESERVATIONS = "rents";
     public static final String SEARCH_FORM = "searchForm";
+    
+    
+    public static final String PENDING = "pending";
+    public static final String RESERVED = "reserved";
+    public static final String REFUSED = "refused";
+    
+    public static final int PENDING_STATUS = 0;
+    public static final int RESERVED_STATUS = 1;
+    public static final int REFUSED_STATUS = -1;
 }

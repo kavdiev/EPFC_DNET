@@ -29,7 +29,8 @@ public class LocationActive implements Serializable {
     int weekIn;
     int yearOut;
     int weekOut;
-    boolean approuved;
+    int status; //0:pending; 1:reserved; -1;refused
+    String message;
     @Transient
     public List<Integer> weeks;
 
@@ -126,12 +127,26 @@ public class LocationActive implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public boolean isApprouved() {
-        return approuved;
+    public void setReserved () {
+    this.status=1;
+    }
+    public void setRefused () {
+    this.status=-1;
+    }
+    public int getStatus() {
+        return status;
     }
 
-    public void setApprouved(boolean approuved) {
-        this.approuved = approuved;
+    public void setStatus(int status) {
+        this.status = status;
     }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
 }
