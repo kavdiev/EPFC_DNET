@@ -13,6 +13,9 @@
         <title>Users</title>
     </head>
     <body>
+                <div align="center"> 
+            <%@include file="/WEB-INF/jspf/header.jspf" %>
+        </div>
         <h1 align="center" >Liste: ${model.label}</h1>     
         <table width="700" height="100%" border="1"  align="center" >
                 <tr><td  bgcolor="#3090C7">Id</>
